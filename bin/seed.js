@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
-const XXXXXModel = require('../models/');
+const billModel = require('../models/bill');
+const userModel = require('../models/user');
 
 
 mongoose
-  .connect('mongodb://localhost/DATABASE NAME', { useNewUrlParser: true })
+  .connect('mongodb://localhost/splitify', {
+    useNewUrlParser: true,
+  })
   .then((x) => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
   })
@@ -13,7 +16,13 @@ mongoose
 
 const seed = [];
 
-XXXXXModel.create(seed)
+userModel.create(seed)
+  .then(data => console.log('Data added', data))
+  .then(() => mongoose.connection.close())
+  .catch(error => console.log('Couldn\'t add files', error));
+
+
+billModel.create(seed)
   .then(data => console.log('Data added', data))
   .then(() => mongoose.connection.close())
   .catch(error => console.log('Couldn\'t add files', error));
