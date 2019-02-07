@@ -12,12 +12,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  myFriends: Array,
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
