@@ -10,7 +10,7 @@ const Bill = require('../models/bill');
 /* GET new bill */
 
 router.get('/new', (req, res, next) => {
-  res.render('/bills/newBill');
+  res.render('bills/new');
 });
 
 /* GET main bill */
