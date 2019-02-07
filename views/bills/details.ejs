@@ -1,1 +1,10 @@
-<h1>Bills details</h1>
+<h1>Bill details</h1>
+<ul>  
+  <% bill.items.forEach((item) => { %>
+    <li>
+      <%= item.name %>
+      <%= item.price %>
+      <%= item.userId %>
+    </li>
+  <% }); %>
+</ul>

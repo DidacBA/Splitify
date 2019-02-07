@@ -19,7 +19,7 @@ router.get('/:id', (req, res, next) => {
   const { id } = req.params;
   Bill.findById(id)
     .then((bill) => {
-      res.render('/bills/details', { bill });
+      res.render('bills/details', { bill });
     }).catch(next);
 });
 
@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
   };
   Bill.create(bill)
     .then(() => {
-      res.render('/bills/details', { bill });
+      res.render('bills/details', { bill });
     }).catch(next);
 });
 
