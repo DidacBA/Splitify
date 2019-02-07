@@ -1,9 +1,9 @@
 <h1>New bill</h1>
 
 <form action="/bills" method="post">
-  <div class="itemAdder-container" id="itemAdder-container">
-    <%- include ../partials/itemAdder %>
-  </div>  
+  <% friendsNames.forEach((friend) => { %>
+    <p><%= friend.username %></p>
+  <% }) %>
   <button type="submit" id="create-button">Create bill</button>
 </form>
 <button id="itemAdder-button">+</button>
