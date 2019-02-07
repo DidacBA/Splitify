@@ -2,18 +2,18 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
+const billSchema = new Schema({
+  creatorId: [{
+    type: ObjectId,
+    ref: 'User',
+  }],
+  participants: [{
+    type: ObjectId,
+    ref: 'User',
+  }],
+  items: Array,
 }, { timestamps: true });
 
-const User = mongoose.model('User', userSchema);
+const Bill = mongoose.model('Bill', billSchema);
 
-module.exports = User;
+module.exports = Bill;
