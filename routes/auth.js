@@ -11,51 +11,68 @@ const bcryptSalt = 10;
 
 router.get('/signup', (req, res, next) => {
   const errorMessage = undefined;
-  res.render('auth/signup', { errorMessage });
+  res.render('auth/signup', {
+    errorMessage
+  });
 });
 
 // POST signup/create new user
 
 router.post('/signup', (req, res, next) => {
-  const { username, password } = req.body;
-  const salt = bcrypt.genSaltSync(bcryptSalt);
-  const hashPass = bcrypt.hashSync(password, salt);
+  const {
+    username,
+    password,
+    email
+  } = req.body;
 
-  // Control the user inserts values
   if (username === '' || password === '') {
-    res.render('auth/signup', {
-      errorMessage: 'Indicate a username and a password to sign up',
-    });
-    return;
-  }
-
-  if (User.findOne(username)) {
-    res.render('auth/signup', {
-      errorMessage: 'User already exists',
-    });
+    req.flash('warning', 'Empty fields'); //TODO install flash
+    res.redirect('/signup');
   } else {
-    User.create({
-      username,
-      password: hashPass,
-    })
-      .then(() => {
-        res.redirect('/');
+    User.findOne({
+        username
       })
-      .catch(next());
+      .then((user) => {
+        if (!user) {
+          const salt = bcrypt.genSaltSync(bcryptSalt);
+          const hashPass = bcrypt.hashSync(password, salt);
+          User.create({
+              username,
+              password: hashPass,
+              email
+            })
+            .then(() => {
+              res.redirect('/');
+            })
+            .catch((error) => {
+              next(error);
+            });
+        } else {
+          res.render('auth/signup');
+        }
+      })
+      .catch(next);
   }
 });
+
 
 // GET login page
 
 router.get('/login', (req, res, next) => {
   const errorMessage = undefined;
-  res.render('auth/login', { errorMessage });
+  res.render('auth/login', {
+    errorMessage
+  });
 });
 
 // POST insert login data from user
 
 router.post('/login', (req, res, next) => {
-  const { username, password } = req.body;
+  const {
+    username,
+    password,
+    email,
+  } = req.body;
 
   // Control the user inserts values
   if (username === '' || password === '') {
