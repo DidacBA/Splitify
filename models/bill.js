@@ -2,17 +2,18 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+const { ObjectId } = Schema.Types;
+
 const billSchema = new Schema({
-  // creatorId: [{
-  //   type: ObjectId,
-  //   ref: 'User',
-  // }],
-  // participants: [{
-  //   type: ObjectId,
-  //   ref: 'User',
-  // }],
-  creatorId: Array,
-  participants: Array,
+  name: String,
+  creatorId: [{
+    type: ObjectId,
+    ref: 'User',
+  }],
+  participants: [{
+    type: ObjectId,
+    ref: 'User',
+  }],
   items: Array,
 }, { timestamps: true });
 

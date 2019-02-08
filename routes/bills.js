@@ -7,6 +7,7 @@ const Bill = require('../models/bill');
 /* GET main page */
 
 
+
 /* GET new bill */
 
 router.get('/new', (req, res, next) => {
@@ -31,17 +32,11 @@ router.get('/:id', (req, res, next) => {
 
 /* POST new bill */
 
-router.post('/', (req, res, next) => {
-  console.log(req.body);
-  // const bill = {
-  //   creatorId: req.session.currentUser,
-  //   participants: req.body.participants,
-  //   items: req.body.items,
-  // };
-  // Bill.create(bill)
-  //   .then(() => {
-  //     res.render('bills/details', { bill });
-  //   }).catch(next);
+router.post('/edit', (req, res, next) => {
+  const newBill = req.body;
+  req.session.newBill = newBill;
+
+  res.render('bills/editBill');
 });
 
 module.exports = router;

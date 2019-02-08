@@ -1,9 +1,10 @@
 <h1>New bill</h1>
 
-<form action="/bills" method="post">
+<form action="/bills/edit" method="post">
+  <input type="text" name="name" id="name" Placeholder="Bill name">
   <% friendsNames.forEach((friend) => { %>
-    <p><%= friend.username %></p>
+    <label for="<%= friend.username %>"></label>
+    <input type="checkbox" name="<%= friend.username %>"><%= friend.username %></input>
   <% }) %>
   <button type="submit" id="create-button">Create bill</button>
 </form>
-<button id="itemAdder-button">+</button>
