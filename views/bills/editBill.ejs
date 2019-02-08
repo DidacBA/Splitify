@@ -1,8 +1,13 @@
-<h1><%= billName %></h1>
+<h1>Edit bill</h1>
 
 <form action="/bills" method="post">
+  <input type="hidden" id="billInformation" name="billInformation" value="">
   <div>
-    <%- include ../partials/itemAdder%>
+    <% names.forEach((name, index) => {%>
+      <h3><%= name %></h3>
+      <%- include ../partials/itemAdder%>
+      <input type="button" class="item-adder" id="<%= name %>" value="+">
+    <%})%>
   </div>  
+  <button type="submit">Send the form</button>
 </form>
-<button id="item-adder">+</button>

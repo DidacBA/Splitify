@@ -11,13 +11,7 @@ const Bill = require('../models/bill');
 /* GET new bill */
 
 router.get('/new', (req, res, next) => {
-  const userId = req.session.currentUser._id
-  User.findById(userId)
-    .populate('myFriends')
-    .then((friends) => {
-      const friendsNames = friends.myFriends;
-      res.render('bills/new', { friendsNames });
-    }).catch(next);
+  res.render('bills/new');
 });
 
 /* GET main bill */
@@ -33,13 +27,32 @@ router.get('/:id', (req, res, next) => {
 /* POST new bill */
 
 router.post('/edit', (req, res, next) => {
-  const billName = req.body.name;
-  const creator = req.session.currentUser.username;
-  const keys = Object.keys(req.body).slice(1);
-  keys.unshift(creator);
-  console.log(keys);
-  console.log(creator);
-  res.render('bills/editBill', { billName, keys, creator });
+  const creator = req.session.currentUser._id;
+  const names = req.body.name;
+  const prices = req.body.price;
+  console.log(req.session);
+  const billItems = [];
+  names.forEach((name, index) => {
+    const item = {
+      name: names[index],
+      price: prices[index],
+    }
+    billItems.push(item);
+  });
+  console.log(billItems);
+  const bill = {
+    creatorId: creator,
+    items: billItems,
+  }
+  Bill.create(bill)
+    .then(() => {
+      res.render('bills/editBill');
+    })
+    .catch(next);
 });
+
+router.post('/', (req, res, next) => {
+  console.log(req.body);
+})
 
 module.exports = router;

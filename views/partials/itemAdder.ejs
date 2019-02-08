@@ -1,9 +1,5 @@
-<div id="item-container">
-<% keys.forEach((key) => {%>
-  <div>
-    <input type="checkbox" name="<%= key %>" id="<%= key %>" value="<%= key %>">
-    <label for="<%= key %>"><%= key %></label>
-  </div>
-  <button id="item-adder">+</button>
-<%})%>
+<div class="item-container">
+    <div class="item-input">
+      <%= billItems%>
+    </div>
 </div>
