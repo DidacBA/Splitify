@@ -1,1 +1,8 @@
-<h1>Bills create 2</h1>
+<h1><%= billName %></h1>
+
+<form action="/bills" method="post">
+  <div>
+    <%- include ../partials/itemAdder%>
+  </div>  
+</form>
+<button id="item-adder">+</button>

@@ -33,10 +33,13 @@ router.get('/:id', (req, res, next) => {
 /* POST new bill */
 
 router.post('/edit', (req, res, next) => {
-  const newBill = req.body;
-  req.session.newBill = newBill;
-
-  res.render('bills/editBill');
+  const billName = req.body.name;
+  const creator = req.session.currentUser.username;
+  const keys = Object.keys(req.body).slice(1);
+  keys.unshift(creator);
+  console.log(keys);
+  console.log(creator);
+  res.render('bills/editBill', { billName, keys, creator });
 });
 
 module.exports = router;
