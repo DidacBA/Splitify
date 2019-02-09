@@ -1,0 +1,11 @@
+<h1>Search Result</h1>
+
+<form action="/users/profile" method="post">
+  <p><%= user[0].username %></p>
+  <p><%= user[0].email %></p>
+  <p> Joined in <%= user[0].createdAt %></p>
+  <input type="hidden" name="id" value="<%= user[0]._id %>">
+  <button type="submit">Add friend</button>
+</form>
+<a href="/users/profile">Go back</a>
+
