@@ -50,17 +50,26 @@ router.post('/', (req, res, next) => {
 
 router.post('/participants', (req,res,next) => {
   const participants = Object.keys(req.body);
+  participants.unshift(req.session.currentUser.username);
   const billId = req.session.newBill._id;
+  const participantsId = [];
   participants.forEach((participant) => {
-    User.findOne({ username: participant })
+    User.findOne( {username: participant} )
       .then((participant) => {
-        console.log(participant);
+        participantsId.push(participant._id)
       })
       .catch(next);
   });
+  Bill.findById(billId)
+    .then((bill) => {
+      bill.participants = participantsId;
+      console.log(bill);
+      res.render('bills/setBill', { participants });
+    })
+    .catch(next);
 });
 
-/* GET main bill */
+/* GET bill details */
 
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
