@@ -54,19 +54,9 @@ router.post('/participants', (req,res,next) => {
   const participants = Object.keys(req.body);
   participants.unshift(req.session.currentUser.username);
   const billId = req.session.newBill._id;
-  const participantsId = [];
-  participants.forEach((participant) => {
-    User.findOne( {username: participant} )
-      .then((participant) => {
-        participantsId.push(participant._id)
-      })
-      .catch(next);
-  });
-  Bill.findById(billId)
+  Bill.findByIdAndUpdate(billId, { 'participants': participants })
     .then((bill) => {
-      bill.participants = participantsId;
-      const items = bill.items;
-      
+      const items = bill.items;        
       res.render('bills/setBill', { participants, items });
     })
     .catch(next);
@@ -75,7 +65,13 @@ router.post('/participants', (req,res,next) => {
 /* POST Create final bill */
 
 router.post('/setBill', (req, res, next) => {
-  console.log(req.body);
+  const itemPayers = req.body;
+  const billId = req.session.newBill._id;
+  Bill.findById(billId)
+    .then((bill) => {
+      console.log(bill);
+    })
+    .catch(next);
 });
 
 /* GET bill details */

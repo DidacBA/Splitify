@@ -10,10 +10,7 @@ const billSchema = new Schema({
     type: ObjectId,
     ref: 'User',
   }],
-  participants: [{
-    type: ObjectId,
-    ref: 'User',
-  }],
+  participants: Array,
   items: Array,
 }, { timestamps: true });
 
