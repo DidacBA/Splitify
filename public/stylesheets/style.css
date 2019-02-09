@@ -10,3 +10,8 @@ a {
 .hidden{
   display: none;
 }
+
+.item-row{
+  display: flex;
+  flex-direction: row;
+}

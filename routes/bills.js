@@ -48,6 +48,8 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
+/* POST Set bill participants */
+
 router.post('/participants', (req,res,next) => {
   const participants = Object.keys(req.body);
   participants.unshift(req.session.currentUser.username);
@@ -64,12 +66,16 @@ router.post('/participants', (req,res,next) => {
     .then((bill) => {
       bill.participants = participantsId;
       const items = bill.items;
-      console.log('participants',participants);
-      console.log('items',items);
       
       res.render('bills/setBill', { participants, items });
     })
     .catch(next);
+});
+
+/* POST Create final bill */
+
+router.post('/setBill', (req, res, next) => {
+  console.log(req.body);
 });
 
 /* GET bill details */
