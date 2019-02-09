@@ -65,11 +65,22 @@ router.post('/participants', (req,res,next) => {
 /* POST Create final bill */
 
 router.post('/setBill', (req, res, next) => {
-  const itemPayers = req.body;
+  const itemPayers = Object.values(req.body);
+
+  const UpdatedItems = [];
+  const bill = req.session.newBill.items;
+
+  bill.forEach((item, index) => {
+    item.username = itemPayers[index];
+    UpdatedItems.push(item);
+  });
+
+  console.log(UpdatedItems);
+
   const billId = req.session.newBill._id;
-  Bill.findById(billId)
+  Bill.findByIdAndUpdate(billId, { 'items': UpdatedItems })
     .then((bill) => {
-      console.log(bill);
+      res.render('bills/details', { bill });
     })
     .catch(next);
 });
