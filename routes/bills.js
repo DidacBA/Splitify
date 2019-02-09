@@ -6,9 +6,17 @@ const Bill = require('../models/bill');
 
 /* GET main page */
 
-/* GET items bill */
+/* POST Bill name */
 
-router.get('/items', (req, res, next) => {
+/* GET name bill */
+
+router.get('/name', (req, res, next) => {
+  res.render('bills/billName');
+});
+
+router.post('/name', (req, res, next) => {
+  const billName = req.body;
+  req.session.billName = billName;
   res.render('bills/items');
 });
 
@@ -18,6 +26,7 @@ router.post('/', (req, res, next) => {
   const creator = req.session.currentUser._id;
   const names = req.body.name;
   const prices = req.body.price;
+  const billName = Object.values(req.session.billName);
   const billItems = [];
 
   names.forEach((name, index) => {
@@ -29,6 +38,7 @@ router.post('/', (req, res, next) => {
   });
 
   const bill = {
+    name: billName,
     creatorId: creator,
     items: billItems,
   };
@@ -81,6 +91,17 @@ router.post('/setBill', (req, res, next) => {
   Bill.findByIdAndUpdate(billId, { 'items': UpdatedItems })
     .then((bill) => {
       res.render('bills/details', { bill });
+    })
+    .catch(next);
+});
+
+/* GET list of bills */
+
+router.get('/list', (req, res, next) => {
+  const userName = req.session.currentUser.username;
+  Bill.find({ 'participants': userName })
+    .then((bills) => {
+      res.render('bills/list', { bills });
     })
     .catch(next);
 });

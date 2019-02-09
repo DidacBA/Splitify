@@ -2,20 +2,20 @@
 
 <form action="/bills/setBill" method="post">
 
-<div>
-  <% items.forEach((item) => { %>
-  <div class="item-row">
-    <p><%= item.name %></p>
-    <p><%= item.price %></p>
-    <fieldset id="<%= item.name %>">
-      <% participants.forEach((participant) => { %>
-        <label for="item"><%= participant %></label>
-        <input type="radio" name="<%= item.name %>" value="<%= participant %>">
-      <% }) %>
-    </fieldset>
-  </div>
-  <%})%>
-  <button type="submit">Create bill</button>
-</div>  
+  <div>
+    <% items.forEach((item) => { %>
+    <div class="item-row">
+      <p><%= item.name %></p>
+      <p><%= item.price %></p>
+      <fieldset id="<%= item.name %>">
+        <% participants.forEach((participant) => { %>
+          <label for="item"><%= participant %></label>
+          <input type="radio" name="<%= item.name %>" value="<%= participant %>">
+        <% }) %>
+      </fieldset>
+    </div>
+    <%})%>
+    <button type="submit">Create bill</button>
+  </div>  
 
 </form>
