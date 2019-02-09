@@ -63,8 +63,11 @@ router.post('/participants', (req,res,next) => {
   Bill.findById(billId)
     .then((bill) => {
       bill.participants = participantsId;
-      console.log(bill);
-      res.render('bills/setBill', { participants });
+      const items = bill.items;
+      console.log('participants',participants);
+      console.log('items',items);
+      
+      res.render('bills/setBill', { participants, items });
     })
     .catch(next);
 });
