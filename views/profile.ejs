@@ -1,1 +1,11 @@
 <h1>Profile</h1>
+
+<p><%= session.username %> Friends:</p>
+
+<ul>
+  <% friendsNames.forEach((friend) => { %>
+  <li><%= friend.username %></li>
+  <% }) %>
+</ul>
+
+<a href="/">Go back</a>
