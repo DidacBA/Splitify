@@ -40,6 +40,9 @@ router.post('/profile', (req, res, next) => {
     .catch(next);
 });
 
+/* POST delete friend from friend list */
+
+
 router.post('/profile/:id/delete', (req, res, next) => {
   const friendId = Object.values(req.params);
   const userName = req.session.currentUser.username;

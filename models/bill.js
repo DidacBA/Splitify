@@ -12,6 +12,10 @@ const billSchema = new Schema({
   }],
   participants: Array,
   items: Array,
+  active: {
+    type: Boolean,
+    default: true,
+  },
 }, { timestamps: true });
 
 const Bill = mongoose.model('Bill', billSchema);

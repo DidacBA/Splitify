@@ -76,6 +76,7 @@ router.post('/participants', (req,res,next) => {
 
 router.post('/setBill', (req, res, next) => {
   const itemPayers = Object.values(req.body);
+  const userName = req.session.currentUser.username;
 
   const UpdatedItems = [];
   const bill = req.session.newBill.items;
@@ -85,12 +86,10 @@ router.post('/setBill', (req, res, next) => {
     UpdatedItems.push(item);
   });
 
-  console.log(UpdatedItems);
-
   const billId = req.session.newBill._id;
   Bill.findByIdAndUpdate(billId, { 'items': UpdatedItems })
     .then((bill) => {
-      res.render('bills/details', { bill });
+      res.render('bills/details', { bill, userName });
     })
     .catch(next);
 });
@@ -115,6 +114,19 @@ router.get('/:id', (req, res, next) => {
     .then((bill) => {
       res.render('bills/details', { bill, userName });
     }).catch(next);
+});
+
+/* POST settle bill */
+
+router.post('/:id/settle', (req, res, next) => {
+  const billId = Object.values(req.params);
+  console.log('I am ', billId);
+  Bill.findByIdAndUpdate(billId, { active: false })
+    .then((bill) => {
+      console.log('I am ', bill);
+      res.redirect('/bills/list');
+    })
+    .catch(next);
 });
 
 module.exports = router;
