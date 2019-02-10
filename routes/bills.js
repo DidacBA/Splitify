@@ -110,9 +110,10 @@ router.get('/list', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
+  const userName = req.session.currentUser.username;
   Bill.findById(id)
     .then((bill) => {
-      res.render('bills/details', { bill });
+      res.render('bills/details', { bill, userName });
     }).catch(next);
 });
 

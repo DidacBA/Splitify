@@ -10,7 +10,7 @@
       <% if (item.username === participant) { %>
         <li class="list-element">
           <span><%= item.name %></span>
-          <span class="item-price"><%= item.price %></span><span>€</span>
+          <span class="item-price" value="<%= item.username %>"><%= item.price %></span><span>€</span>
         </li>
       <% } %>
       </ul>
@@ -18,4 +18,6 @@
     </div>
   <% }); %>
 
-<p>You owe <span id="total"></span> €</p>
+<p>Total bill <span id="bill-total"></span> €</p>
+
+<p><span id="user-name"><%= userName %></span>, you owe <span id="user-total"></span> €</p>
