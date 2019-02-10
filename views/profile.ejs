@@ -4,7 +4,7 @@
 
 <ul>
   <% friendsNames.forEach((friend) => { %>
-  <li><%= friend.username %></li>
+  <li><%= friend.username %> <form action="/users/profile/<%= friend._id %>/delete" method="post"><button type="submit">Delete</button></form></li>
   <% }) %>
 </ul>
 

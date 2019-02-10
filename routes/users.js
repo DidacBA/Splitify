@@ -33,12 +33,19 @@ router.post('/profile/search', (req, res, next) => {
 router.post('/profile', (req, res, next) => {
   const friendId = req.body.id;
   const userName = req.session.currentUser.username;
-  User.findOneAndUpdate({ 'username': userName }, { '$push': { 'myFriends': friendId } })
-    .populate('myFriends')
+  User.findOneAndUpdate({ username: userName }, { $push: { myFriends: friendId } })
     .then((user) => {
-      console.log(user);
       res.redirect('profile');
     })
+    .catch(next);
+});
+
+router.post('/profile/:id/delete', (req, res, next) => {
+  const friendId = Object.values(req.params);
+  const userName = req.session.currentUser.username;
+
+  User.findOneAndUpdate({ username: userName }, { $pullAll: { myFriends: friendId } })
+    .then(() => res.redirect('/users/profile'))
     .catch(next);
 });
 
