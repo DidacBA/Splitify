@@ -21,7 +21,7 @@ router.get('/profile', (req, res, next) => {
 
 router.post('/profile/search', (req, res, next) => {
   const searchField = req.body.search;
-  User.find({"username" : searchField})
+  User.find({ "username" : searchField })
     .then((user) => {
       res.render('search', { user });
     })
@@ -32,19 +32,12 @@ router.post('/profile/search', (req, res, next) => {
 
 router.post('/profile', (req, res, next) => {
   const friendId = req.body.id;
-  const userId = req.session.currentUser._id;
-
-  User.findById(userId)
+  const userName = req.session.currentUser.username;
+  User.findOneAndUpdate({ 'username': userName }, { '$push': { 'myFriends': friendId } })
+    .populate('myFriends')
     .then((user) => {
-      const updatedFriends = user.myFriends;
-      updatedFriends.push(friendId);
-
-      User.findByIdAndUpdate(userId, { 'myfriends': updatedFriends })
-        .then((user) => {
-          console.log(user)
-          res.redirect('profile');
-        })
-        .catch(next);
+      console.log(user);
+      res.redirect('profile');
     })
     .catch(next);
 });
