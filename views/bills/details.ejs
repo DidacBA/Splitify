@@ -1,11 +1,17 @@
-<h1>Bill details</h1>
-<ul>  
   <h1><%= bill.name %></h1>
-  <% bill.items.forEach((item) => { %>
-    <li>
-      <%= item.name %>
-      <%= item.price %>
-      <%= item.username%>
-    </li>
+  <h3>Participants</h3>
+  <% bill.participants.forEach((participant) => { %>
+    <div id="<%= participant %>">
+      <h4><%= participant %></h4>
+      <% bill.items.forEach((item) => { %>
+      <ul>  
+      <% if (item.username === participant) { %>
+        <li>
+          <span><%= item.name %></span>
+          <span class="item-price"><%= item.price %></span><span>€</span>
+        </li>
+      <% } %>
+      </ul>
+      <% })%>
+    </div>
   <% }); %>
-</ul>
