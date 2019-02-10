@@ -29,18 +29,15 @@ router.post('/signup', (req, res, next) => {
     req.flash('warning', 'Empty fields'); //TODO install flash
     res.redirect('/signup');
   } else {
-    User.findOne({
-        username
-      })
+    User.findOne({ username })
       .then((user) => {
         if (!user) {
           const salt = bcrypt.genSaltSync(bcryptSalt);
           const hashPass = bcrypt.hashSync(password, salt);
           User.create({
-              username,
-              password: hashPass,
-              email
-            })
+            username,
+            password: hashPass,
+            email })
             .then(() => {
               res.redirect('/');
             })
@@ -108,7 +105,8 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res, next) => {
   req.session.destroy(() => {
     // cannot access session here
-    res.redirect('/login');
+    console.log('I am in destroy');
+    res.redirect('login');
   });
 });
 

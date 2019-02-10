@@ -68,10 +68,10 @@ app.set('layout', 'layouts/layout');
 
 // Routes setup
 
-app.use('/', indexRouter);
-app.use('/users', protectedView, usersRouter);
 app.use('/', authRouter);
-app.use('/bills', billsRouter);
+app.use('/', protectedView, indexRouter);
+app.use('/users', protectedView, usersRouter);
+app.use('/bills', protectedView, billsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
