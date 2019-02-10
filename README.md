@@ -85,6 +85,7 @@ User profile:
 Main:
 
 - Suggest users who are paying lots of whole bills as friends
+- Desktop version
 
 Bill splitting:
 

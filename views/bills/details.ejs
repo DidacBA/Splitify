@@ -1,0 +1,29 @@
+<%- include ../partials/navbar %>
+
+<h1><%= bill.name %></h1>
+<h3>Participants</h3>
+  <% bill.participants.forEach((participant) => { %>
+    <div id="<%= participant %>" class="participant-container">
+      <h4><%= participant %></h4>
+      <% bill.items.forEach((item) => { %>
+      <ul class="list">  
+      <% if (item.username === participant) { %>
+        <li class="list-element">
+          <span><%= item.name %></span>
+          <span class="item-price" value="<%= item.username %>"><%= item.price %></span><span>€</span>
+        </li>
+      <% } %>
+      </ul>
+      <% })%>
+    </div>
+  <% }); %>
+
+<p>Total bill <span id="bill-total"></span> €</p>
+
+<p><span id="user-name"><%= userName %></span>, you owe <span id="user-total"></span> €</p>
+
+<form action="/bills/<%=bill._id %>/settle" method="post">
+<button type="submit">Settle bill</button>
+</form>
+
+<a href="/bills/list">Go Back</a>

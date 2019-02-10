@@ -13,7 +13,7 @@ const protectedView = require('./middlewares/protectedView');
 // Set up mongoose and Mongo connection
 
 mongoose
-  .connect('mongodb://localhost/XXXXXXXXXXXXX', { useNewUrlParser: true })
+  .connect('mongodb://localhost/splitify', { useNewUrlParser: true })
   .then((x) => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
   })
@@ -26,6 +26,7 @@ mongoose
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const billsRouter = require('./routes/bills');
 
 const app = express();
 
@@ -67,10 +68,10 @@ app.set('layout', 'layouts/layout');
 
 // Routes setup
 
-
-app.use('/', indexRouter);
-app.use('/users', protectedView, usersRouter);
 app.use('/', authRouter);
+app.use('/', protectedView, indexRouter);
+app.use('/users', protectedView, usersRouter);
+app.use('/bills', protectedView, billsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

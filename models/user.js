@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+const { ObjectId } = Schema.Types;
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -12,6 +14,15 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  myFriends: [{
+    type: ObjectId,
+    reference: 'User',
+  }],
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

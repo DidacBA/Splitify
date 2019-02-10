@@ -1,0 +1,20 @@
+
+<%- include ./partials/navbar %>
+
+<h1>Profile</h1>
+
+<p><%= session.username %> Friends:</p>
+
+<ul>
+  <% friendsNames.forEach((friend) => { %>
+  <li><%= friend.username %> <form action="/users/profile/<%= friend._id %>/delete" method="post"><button type="submit">Delete</button></form></li>
+  <% }) %>
+</ul>
+
+<h1>Add friends</h1>
+<form action="/users/profile/search" method="post">
+<input type="text" name="search">
+<button>Search</button>
+</form>
+
+<a href="/">Go back</a>

@@ -1,0 +1,10 @@
+<%- include ../partials/navbar %>
+
+<form action="/bills/participants" method="post">
+  <div>
+    <% friendsNames.forEach((name, index) => {%>
+      <%- include ../partials/friends%>
+    <%})%>
+  </div>  
+  <button type="submit">Send the form</button>
+</form>
