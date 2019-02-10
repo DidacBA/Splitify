@@ -120,10 +120,8 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/:id/settle', (req, res, next) => {
   const billId = Object.values(req.params);
-  console.log('I am ', billId);
   Bill.findByIdAndUpdate(billId, { active: false })
     .then((bill) => {
-      console.log('I am ', bill);
       res.redirect('/bills/list');
     })
     .catch(next);
