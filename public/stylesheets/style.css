@@ -17,3 +17,38 @@ a {
   display: flex;
   flex-direction: row;
 }
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-icons{
+  font-size: 1.5rem;
+}
+
+.title{
+  margin: 1rem;
+}
+
+.list-group{
+  margin: 1rem;
+}
+
+.list-group-item{
+  margin: 0.5rem 0;
+}
+
+.bill-name{
+  font-weight: bold;
+}
+
+.centered{
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.go-back{
+  font-size: 3rem;
+}

@@ -1,17 +1,18 @@
 <%- include ../partials/navbar %>
 
+<h3 class="title">My active bills</h3>
 
-<h1>Bills list</h1>
+<div class="list-group">
+  <% bills.forEach((bill) => { %>
+    <a href="/bills/<%= bill._id %>" class="list-group-item list-group-item-action">
+      <% if (bill.active) {%>
+        <div class="flex-between">
+          <span class="bill-name"><%= bill.name %></span>
+          <span class="debt"><span id="user-total">10</span> €</span>
+        </div>
+      <% } %>
+    </a>
+  <% }) %>
+</div>
 
-<% bills.forEach((bill) => { %>
-  <% if (bill.active) {%>
-    <div>
-      <p><%= bill.name %></p>
-      <p><%= bill.participants[0] %></p>
-      <p><%= bill.items[0].name %></p>
-      <a href="/bills/<%= bill._id %>">Details</a>
-    </div>
-  <% } %>
-<% }) %>
-
-<a href="/">Go back</a>
+<a href="/" class="centered go-back"><i class="fas fa-angle-double-left"></i></a>

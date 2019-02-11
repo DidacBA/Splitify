@@ -1,5 +1,5 @@
 
-function calculator() {
+function debt() {
   const itemPrices = document.querySelectorAll('.item-price');
   const billTotal = document.getElementById('bill-total');
   const userTotal = document.getElementById('user-total');
@@ -18,4 +18,4 @@ function calculator() {
   userTotal.textContent = partialTotal;
 }
 
-window.addEventListener('load', calculator);
+window.addEventListener('load', debt);
