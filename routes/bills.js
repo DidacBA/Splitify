@@ -1,4 +1,4 @@
-const mongodb = require('mongodb');
+const { ObjectId } = require('mongoose').Types;
 const express = require('express');
 const User = require('../models/user');
 const Bill = require('../models/bill');
@@ -107,14 +107,14 @@ router.get('/list', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
   const userName = req.session.currentUser.username;
-  if (mongodb.ObjectId.isValid(id)) {
+  if (ObjectId.isValid(id)) {
     Bill.findById(id)
       .then((bill) => {
         res.render('bills/details', { bill, userName });
       }).catch(next);
   } else {
     req.flash('error', 'Bill doesn\'t exist');
-    res.redirect('/bills');
+    res.redirect('/bills/list');
   }
 });
 
