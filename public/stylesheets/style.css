@@ -23,19 +23,33 @@ a {
   justify-content: space-between;
 }
 
+.flex-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex-column{
+  display:flex;
+  flex-direction: column;
+}
+
 .nav-icons{
   font-size: 1.5rem;
 }
 
 .title{
-  margin: 1rem;
+  text-align: center;
+}
+
+.participant-container{
+  margin-top: 0.5rem;
 }
 
 .list-group{
   margin: 1rem;
 }
 
-.list-group-item{
+.extra-margin{
   margin: 0.5rem 0;
 }
 
@@ -43,10 +57,17 @@ a {
   font-weight: bold;
 }
 
+.totals{
+  width: 40%;
+  padding: 1rem;
+  text-align: center;
+  background-color: rgba(200, 200, 200, 0.2);
+}
+
 .centered{
   display: flex;
   justify-content: center;
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 
 .go-back{

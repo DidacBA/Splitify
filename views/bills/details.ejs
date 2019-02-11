@@ -1,31 +1,40 @@
 <%- include ../partials/navbar %>
 
-<h1><%= bill.name %></h1>
-<h3>Participants</h3>
+<div class="container">
+
+  <h3 class="title"><%= bill.name %></h1>
+
   <% bill.participants.forEach((participant) => { %>
-    <div id="<%= participant %>" class="participant-container">
-      <h4><%= participant %></h4>
-      <% bill.items.forEach((item) => { %>
-      <ul class="list">  
-      <% if (item.username === participant) { %>
-        <li class="list-element">
-          <span><%= item.name %></span>
-          <span class="item-price" value="<%= item.username %>"><%= item.price %></span><span>€</span>
-        </li>
-      <% } %>
-      </ul>
-      <% })%>
+    <div class="container">
+      <div id="<%= participant %>" class="participant-container">
+        <h4 class="subtitle"><%= participant %></h4>
+        <ul class="list-group list-group-flush">  
+          <% bill.items.forEach((item) => { %>
+          <% if (item.username === participant) { %>
+            <li class="list-group-item small-margin">
+              <div class="flex-between">
+                <span><%= item.name %></span>
+                <span class="item-price" value="<%= item.username %>"><%= item.price %> €</span>
+              </div>
+            </li>
+          <% } %>
+          <% })%>
+        </ul>
+      </div>
     </div>
-  <% }); %>
+    <% }); %>
 
-<p>Total bill <span id="bill-total"></span> €</p>
+  <div class="flex-column">
+    <p class="totals">Total bill <span id="bill-total"></span> €</p>
+    <p class="totals"><span id="user-name"><%= userName %></span>, you owe <span id="user-total"></span> €</p>
+  </div>
 
-<p><span id="user-name"><%= userName %></span>, you owe <span id="user-total"></span> €</p>
+  <form action="/bills/<%=bill._id %>/settle" method="post">
+    <button type="submit" class="btn btn-success">Settle bill</button>
+  </form>
+</div>
 
-<form action="/bills/<%=bill._id %>/settle" method="post">
-<button type="submit">Settle bill</button>
-</form>
 
-<a href="/bills/list">Go Back</a>
+<a href="/" class="centered go-back"><i class="fas fa-angle-double-left"></i></a>
 
 <script src="/javascript/calculator.js"></script>
