@@ -1,8 +1,10 @@
 
 
 body {
-  padding: 50px;
+  padding: 0;
+  margin:0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #01233f;
 }
 
 a {
@@ -73,3 +75,115 @@ a {
 .go-back{
   font-size: 3rem;
 }
+/* Bill creation button styles */
+
+#bill-button-container {
+  text-align: center;
+  padding: 0;
+  margin-top: 25%;
+}
+
+#bill-button {
+  width: 17rem;
+  height: 17rem;
+  padding: 4rem 3rem;
+  border-radius: 50%;
+  font-size: 6rem;
+  line-height: 1.33;
+  background-color: #52C8Fa;
+  color: rgb(66, 155, 194);
+  text-shadow: 0px 0px 0px rgb(54, 124, 155);
+  box-shadow: inset 0 2px 0 #52C8Fa, 0 2px 2px rgba(0, 0, 0, 0.19);
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transform-origin: top;
+  animation-delay: 10s;
+}
+
+/* Active bills button styling */
+
+#active-bills-button-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  height: 25%;
+}
+
+#active-bills-button {
+  width: 100%;
+  border-radius: 0;
+  height: 100%;
+  font-size: 2rem;
+  background-color: #01233F;
+  color: whitesmoke;
+  border-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bounce-7 {
+  animation-name: bounce-7;
+  animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+@keyframes bounce-7 {
+  0%   { transform: scale(1,1)      translateY(0); }
+  10%  { transform: scale(1.1,.9)   translateY(0); }
+  30%  { transform: scale(.9,1.1)   translateY(-10px); }
+  50%  { transform: scale(1.05,.95) translateY(0); }
+  57%  { transform: scale(1,1)      translateY(-7px); }
+  64%  { transform: scale(1,1)      translateY(0); }
+  100% { transform: scale(1,1)      translateY(0); }
+}
+/*Authorization Views*/
+.logo{
+  text-align: center;
+}
+.auth {
+  margin: 5rem 2.5rem;
+}
+.account-message {
+font-size: .75rem;
+}
+#form {
+  margin-top: 2rem;
+}
+#form button {
+  margin-bottom: 1rem;
+}
+
+/*Profile Views*/
+.profile {
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.profile h5 {
+  margin: 1rem;
+}
+.profile img {
+  margin: 1rem;
+  height: 15rem;
+  width: auto;
+  border-radius: 100%;
+}
+#friend-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1rem;
+}
+#friend-search button {
+  margin: 1rem 0;
+}
+.friends-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.friends-list button {
+  font-size: .75rem;
+}
+

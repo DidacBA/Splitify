@@ -1,5 +1,10 @@
 <%- include ./partials/navbar %>
 
-<a href="/bills/name">+</a>
+<div id="bill-button-container" class="container-fluid"">
+  <a id="bill-button" class="btn btn-default btn-circle btn-xl col align-self-center bounce-7" href="/bills/name"><span>+</span></a>
+</div>
 
-<a href="/bills/list">Active bills</a>
+<div id="active-bills-button-container" class="container-fluid">
+  <a id="active-bills-button" class="btn btn-primary" href="/bills/list"><span>Active bills</span></a>
+</div>
+
