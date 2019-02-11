@@ -25,8 +25,7 @@ router.post('/signup', (req, res, next) => {
   if (username === '' || password === '') {
     req.flash('warning', 'Empty fields');
     res.redirect('/signup');
-  }
-  if (username.length < 6 || username.length > 16) {
+  } else if (username.length < 6 || username.length > 16) {
     req.flash('warning', 'Username must be between 6 and 16 characters');
     res.redirect('/signup');
   } else {

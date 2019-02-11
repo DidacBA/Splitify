@@ -27,7 +27,7 @@ mongoose
 // Connect routers
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const profileRouter = require('./routes/profile');
 const authRouter = require('./routes/auth');
 const billsRouter = require('./routes/bills');
 
@@ -77,7 +77,7 @@ app.set('layout', 'layouts/layout');
 
 app.use('/', authRouter);
 app.use('/', protectedView, indexRouter);
-app.use('/users', protectedView, usersRouter);
+app.use('/profile', protectedView, profileRouter);
 app.use('/bills', protectedView, billsRouter);
 
 // catch 404 and forward to error handler
