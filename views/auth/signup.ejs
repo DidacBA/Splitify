@@ -1,13 +1,26 @@
+<img src="/images/logo.png" alt="logo">
 <form id="form" action="/signup" method="POST">
-  <input type="text" name="username" placeholder="Your username" required>
+  <div class="form-group">
+    <input class="form-control" type="text" name="username" placeholder="username" required>
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="text" name="email" placeholder="email" required>
+  </div>
+  <div class="form-group">
+    <input class="form-control" type="password" name="password" placeholder="password" required>
+  </div>
 
-  <input type="text" name="email" placeholder="Your email" required>
-
-  <input type="password" name="password" placeholder="********" required>
   <% if (errorMessage) { %>
     <div class="error-message">
       <%= errorMessage %>
     </div>
   <% } %>
-  <button type="submit">Create account</button>
+
+  <button class="btn btn-primary" type="submit">Create account</button>
+
+  <p class="account-message">
+      Already have an account? <a href="/signin">Sign in</a>
+  </p>
+
 </form>
+
