@@ -21,7 +21,7 @@ router.get('/profile', (req, res, next) => {
 
 router.post('/profile/search', (req, res, next) => {
   const searchField = req.body.search;
-  User.find({ "username" : searchField })
+  User.find({ 'username' : searchField })
     .then((user) => {
       res.render('search', { user });
     })
