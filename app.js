@@ -8,6 +8,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const protectedView = require('./middlewares/protectedView');
+const dotenv = require('dotenv').config();
 
 
 // Set up mongoose and Mongo connection
