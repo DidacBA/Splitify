@@ -8,7 +8,7 @@
       <a href="/bills/<%= bill._id %>" class="list-group-item list-group-item-action extra-margin">
         <% if (bill.active) {%>
           <div class="flex-between">
-            <span class="bill-name"><%= bill.name %></span>
+            <span class="bill-name" value="<%= bill.items %>"><%= bill.name %></span>
             <span class="debt"><span id="user-total">10</span> €</span>
           </div>
         <% } %>
@@ -18,3 +18,6 @@
 </div>
 
 <a href="/" class="centered go-back"><i class="fas fa-angle-double-left"></i></a>
+
+
+<script src="/javascript/listDebt.js"></script>

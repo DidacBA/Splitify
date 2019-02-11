@@ -7,8 +7,9 @@ const session = require('express-session');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+const flash = require('connect-flash');
 const protectedView = require('./middlewares/protectedView');
-
+const notifications = require('./middlewares/flash');
 
 // Set up mongoose and Mongo connection
 
@@ -44,6 +45,10 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000,
   },
 }));
+
+app.use(flash());
+
+app.use(notifications);
 
 // Set up current user middleware. Makes the currentUser available in every page
 
