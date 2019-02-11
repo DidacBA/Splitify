@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/user');
+const uploadCloud = require('../config/cloudinary.js');
 
 const router = express.Router();
 
@@ -57,3 +58,22 @@ router.post('/profile/:id/delete', (req, res, next) => {
 });
 
 module.exports = router;
+
+/* POST user profile image */
+
+router.post('/profile/add-profile-photo', uploadCloud.single('photo'), (req, res, next) => {
+  const userId = req.session.currentUser._id;
+  const imagePath = req.file.url;
+  User.findByIdAndUpdate(userId, { 'imgPath': imagePath }, { new: true })
+    .then((user) => {
+      const session = user;
+      User.findById(session._id)
+        .populate('myFriends')
+        .then((friends) => {
+          const friendsNames = friends.myFriends;
+          res.render('profile', { session, friendsNames });
+        })
+        .catch(next);
+    })
+    .catch(next);
+});

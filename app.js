@@ -10,6 +10,8 @@ const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const protectedView = require('./middlewares/protectedView');
 const notifications = require('./middlewares/flash');
+const dotenv = require('dotenv').config();
+
 
 // Set up mongoose and Mongo connection
 
