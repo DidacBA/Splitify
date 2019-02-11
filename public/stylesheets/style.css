@@ -2,7 +2,9 @@
 
 body {
   padding: 0;
+  margin:0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #01233f;
 }
 
 a {
@@ -79,3 +81,54 @@ a {
   64%  { transform: scale(1,1)      translateY(0); }
   100% { transform: scale(1,1)      translateY(0); }
 }
+/*Authorization Views*/
+.logo{
+  text-align: center;
+}
+.auth {
+  margin: 5rem 2.5rem;
+}
+.account-message {
+font-size: .75rem;
+}
+#form {
+  margin-top: 2rem;
+}
+#form button {
+  margin-bottom: 1rem;
+}
+
+/*Profile Views*/
+.profile {
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.profile h5 {
+  margin: 1rem;
+}
+.profile img {
+  margin: 1rem;
+  height: 15rem;
+  width: auto;
+  border-radius: 100%;
+}
+#friend-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1rem;
+}
+#friend-search button {
+  margin: 1rem 0;
+}
+.friends-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.friends-list button {
+  font-size: .75rem;
+}
+
