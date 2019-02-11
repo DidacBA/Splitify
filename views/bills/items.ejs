@@ -1,16 +1,15 @@
 <%- include ../partials/navbar %>
 
 <form action="/bills" method="post">
-<div class="items-list-container" id="items-list-container">
-  <div class="item-container">
-  <input type="text" name="name" Placeholder="Item"> 
-  <input type="number" step="0.01" name="price" Placeholder="€">
+  <div class="items-list-container" id="items-list-container">
+    <div class="item-container">
+    <input class="item-name" type="text" name="name" Placeholder="Item" value=""> 
+    <input class="item-price" type="number" step="0.01" name="price" Placeholder="€" value="">
+    </div>
   </div>
-</div>
 
-
-<input id="item-adder" type="button" value="+">
-  <button type="submit" id="create-button">Create bill</button>
+  <input id="item-adder" type="button" value="+">
+  <button type="submit" id="create-button"><i class="fas fa-arrow-right"></i></button>
 </form>
 
 <script src="/javascript/itemAdder.js"></script>

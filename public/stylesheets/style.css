@@ -1,4 +1,6 @@
-
+html{
+  height: 100vh;
+}
 
 body {
   padding: 0;
