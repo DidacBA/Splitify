@@ -60,7 +60,6 @@ module.exports = router;
 router.post('/profile/add-profile-photo', uploadCloud.single('photo'), (req, res, next) => {
   const userId = req.session.currentUser._id;
   const imagePath = req.file.url;
-  console.log(req.session.currentUser.imgPath);
   User.findByIdAndUpdate(userId, { 'imgPath': imagePath }, { new: true })
     .then((user) => {
       const session = user;
