@@ -21,7 +21,7 @@ router.get('/profile', (req, res, next) => {
 
 router.post('/profile/search', (req, res, next) => {
   const searchField = req.body.search;
-  User.find({ 'username' : searchField })
+  User.find({ username: searchField })
     .then((user) => {
       res.render('search', { user });
     })
@@ -34,7 +34,8 @@ router.post('/profile', (req, res, next) => {
   const friendId = req.body.id;
   const userName = req.session.currentUser.username;
   User.findOneAndUpdate({ username: userName }, { $push: { myFriends: friendId } })
-    .then((user) => {
+    .then(() => {
+      req.flash('success', 'Friend added successfully');
       res.redirect('profile');
     })
     .catch(next);
@@ -48,7 +49,10 @@ router.post('/profile/:id/delete', (req, res, next) => {
   const userName = req.session.currentUser.username;
 
   User.findOneAndUpdate({ username: userName }, { $pullAll: { myFriends: friendId } })
-    .then(() => res.redirect('/users/profile'))
+    .then(() => {
+      req.flash('success', 'Friend removed sucessfully');
+      res.redirect('/users/profile');
+    })
     .catch(next);
 });
 
