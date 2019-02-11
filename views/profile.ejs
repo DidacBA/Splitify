@@ -1,20 +1,32 @@
 
 <%- include ./partials/navbar %>
 
-<h1>Profile</h1>
+<div class="profile">
+  <div class="card" style="width: 20rem;">
+    <h5 class="card-title"><%= session.username %>'s Settings</h5>
+    <img src="https://images.unsplash.com/photo-1495147334217-fcb3445babd5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80" class="card-img-top" alt="...">
+      <p class="card-text"><strong>Email: </strong><%= session.email %></p>
+      <div class="list-group-item">
+        <h5>Add friends</h5>
+        <form id="friend-search" action="/users/profile/search" class="form-inline my-2 my-lg-0" method="post">
+          <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search by username" aria-label="Search">
+          <button class="btn btn-primary" type="submit">Search friend</button>
+        </form>
+      </div>
+    <h5 class="card-title">Friends</h3>
+    <ul class="list-group">
+      <% friendsNames.forEach((friend) => { %>
+      <li class="list-group-item">
+        <div class="friends-list">
+          <p><%= friend.username %> </p> 
+          <form action="/users/profile/<%= friend._id %>/delete" method="post">
+            <button class="btn btn-danger" type="submit"><i class="fas fa-trash-alt"></i></button>
+          </form>
+        </div>
+      </li>
+      <% }) %>
+    </ul>
+  </div>
+</div>
+<a href="/" class="go-back centered"><i class="fas fa-angle-double-left"></i></a>
 
-<p><%= session.username %> Friends:</p>
-
-<ul>
-  <% friendsNames.forEach((friend) => { %>
-  <li><%= friend.username %> <form action="/users/profile/<%= friend._id %>/delete" method="post"><button type="submit">Delete</button></form></li>
-  <% }) %>
-</ul>
-
-<h1>Add friends</h1>
-<form action="/users/profile/search" method="post">
-<input type="text" name="search">
-<button>Search</button>
-</form>
-
-<a href="/">Go back</a>

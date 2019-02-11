@@ -1,19 +1,24 @@
-<img src="/images/logo.png" alt="logo">
-<form action="/login" method="POST" id="form">
-  <div class="form-group">
-    <input class="form-control" type="text" name="username" placeholder="username" required>
+<div class="auth">
+  <div class="logo">
+    <img src="/images/logo.png" alt="logo">
   </div>
-  <div class="form-group">
-    <input class="form-control" type="password" name="password" placeholder="password" required>
+  <form action="/login" method="POST" id="form">
+    <div class="form-group">
+      <input class="form-control" type="text" name="username" placeholder="username" required>
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="password" name="password" placeholder="password" required>
+    </div>
+  
+    <% if (errorMessage) { %>
+      <div class="error-message"><%= errorMessage %></div>
+    <% } %>
+  
+    <button class="btn btn-primary">Sign in</button>
+  
+    <p class="account-message">
+      Don't have an account? <a href="/signup">Sign up</a>
+    </p>
+  </form>
   </div>
-
-  <% if (errorMessage) { %>
-    <div class="error-message"><%= errorMessage %></div>
-  <% } %>
-
-  <button class="btn btn-primary">Sign in</button>
-
-  <p class="account-message">
-    Don't have an account? <a href="/signup">Sign up</a>
-  </p>
-</form>
+</div>
