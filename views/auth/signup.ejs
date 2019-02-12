@@ -1,10 +1,12 @@
+<%- include('../partials/notifications') %>
+
 <div class="auth">
   <div class="logo">
     <img src="/images/logo.png" alt="logo">
   </div>
   <form id="form" action="/signup" method="POST">
     <div class="form-group">
-      <input class="form-control" type="text" name="username" placeholder="username" minlength="6" maxlength="16" required>
+      <input class="form-control" type="text" name="username" placeholder="username" minlength="4" maxlength="16" required>
     </div>
     <div class="form-group">
       <input class="form-control" type="email" name="email" placeholder="email" required>
@@ -12,10 +14,13 @@
     <div class="form-group">
       <input class="form-control" type="password"name="password" placeholder="password" required>
     </div>
-    <button class="btn btn-primary" type="submit">Create account</button>
+    <input id="identifier" type="hidden" name="confirmationCode" value="">
+    <button id="create-account" class="btn btn-primary" type="submit">Create account</button>
     <p class="account-message">
         Already have an account? <a href="/signin">Sign in</a>
     </p>
   </form>
 </div>
+
+<script src="./javascript/mailIdentifier.js"></script>
 
