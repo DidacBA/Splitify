@@ -56,7 +56,8 @@ router.post('/signup', (req, res, next) => {
               })
                 .then(info => console.log(info))
                 .catch(error => console.log(error));
-
+              
+              req.flash('success', 'Account created. You will receive a confirmation mail shortly');
               res.redirect('/');
             })
             .catch(() => {

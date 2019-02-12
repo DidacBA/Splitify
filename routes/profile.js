@@ -49,7 +49,6 @@ router.post('/', (req, res, next) => {
 
 /* POST delete friend from friend list */
 
-
 router.post('/:id/delete', (req, res, next) => {
   const friendId = Object.values(req.params);
   const userName = req.session.currentUser.username;

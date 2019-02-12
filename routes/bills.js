@@ -133,6 +133,10 @@ router.get('/:id', (req, res, next) => {
   if (ObjectId.isValid(id)) {
     Bill.findById(id)
       .then((bill) => {
+        if (!bill) {
+          req.flash('error', 'Bill doesn\'t exist');
+          res.redirect('/bills/list');
+        }
         res.render('bills/details', { bill, userName });
       }).catch(next);
   } else {
