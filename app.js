@@ -8,7 +8,6 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
-const nodeMail = require('nodemailer');
 const dotenv = require('dotenv').config();
 
 const protectedView = require('./middlewares/protectedView');
@@ -52,18 +51,6 @@ app.use(session({
 app.use(flash());
 
 app.use(notifications);
-
-// Set up node Mailer transporter
-
-const transporter = nodeMail.createTransport({
-  host: 'Gmail',
-  port: 587,
-  secure: false, // upgrade later with STARTTLS
-  auth: {
-    user: 'splitifyWebApp@gmail.com',
-    pass: 'splitify2019',
-  },
-});
 
 // Set up current user middleware. Makes the currentUser available in every page
 

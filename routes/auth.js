@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const transporter = require('../transporter');
 
 const router = express.Router();
 
@@ -43,6 +44,15 @@ router.post('/signup', (req, res, next) => {
             status: 'Pending confirmation',
           })
             .then(() => {
+              transporter.sendMail({
+                from: '"Splitify Team" <splitifyWebApp@gmail.com>',
+                to: email,
+                subject: `Welcome to Splitify, ${username}`,
+                text: 'Please click on the following url to confirm your account',
+                html: '<b>Please click on the following url to confirm your account</b>',
+              })
+                .then(info => console.log(info))
+                .catch(error => console.log(error))
               res.redirect('/');
             })
             .catch(() => {
