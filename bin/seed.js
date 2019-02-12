@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Bill = require('../models/bill');
 const User = require('../models/user');
+require('dotenv').config();
 
 
 mongoose
-  .connect('mongodb://localhost/splitify', {
+  .connect(process.env.DB_URL, {
     useNewUrlParser: true,
   })
   .then((x) => {
