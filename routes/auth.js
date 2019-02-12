@@ -45,10 +45,10 @@ router.post('/signup', (req, res, next) => {
             .then(() => {
               res.redirect('/');
             })
-            .catch(next);
-        } else {
-          req.flash('warning', 'Username or email already in use');
-          res.redirect('/signup');
+            .catch(() => {
+              req.flash('warning', 'Username or email already in use');
+              res.redirect('/signup');
+            });
         }
       })
       .catch(next);
