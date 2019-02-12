@@ -1,7 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const transporter = require('../transporter');
+const transporter = require('../config/transporter');
+const verifyMessage = require('../config/verifyMail');
 
 const router = express.Router();
 
@@ -23,6 +24,8 @@ router.post('/signup', (req, res, next) => {
     email,
     confirmationCode,
   } = req.body;
+
+  const confirmationURL = `http://localhost:3000/confirm/${confirmationCode}`;
 
   if (username === '' || password === '') {
     req.flash('warning', 'Empty fields');
@@ -49,10 +52,10 @@ router.post('/signup', (req, res, next) => {
                 to: email,
                 subject: `Welcome to Splitify, ${username}`,
                 text: 'Please click on the following url to confirm your account',
-                html: '<b>Please click on the following url to confirm your account</b>',
+                html: verifyMessage(confirmationURL),
               })
                 .then(info => console.log(info))
-                .catch(error => console.log(error))
+                .catch(error => console.log(error));
               res.redirect('/');
             })
             .catch(() => {
@@ -65,6 +68,14 @@ router.post('/signup', (req, res, next) => {
   }
 });
 
+// GET account confirmation
+
+router.get('/confirm/:confirmCode', (req, res, next) => {
+  const confirmation = req.params.confirmCode;
+  User.findOneAndUpdate({ confirmationCode: confirmation }, { status: 'Confirmed' })
+    .then(res.render('auth/login'))
+    .catch(next);
+});
 
 // GET login page
 
@@ -90,6 +101,11 @@ router.post('/login', (req, res, next) => {
     .then((user) => {
       if (!user) {
         req.flash('error', 'The username doesn\'t exist');
+        res.redirect('/login');
+        return;
+      }
+      if (user.status === 'Pending confirmation') {
+        req.flash('error', 'Account is not active. Please check your email');
         res.redirect('/login');
         return;
       }
