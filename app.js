@@ -11,14 +11,14 @@ const flash = require('connect-flash');
 const protectedView = require('./middlewares/protectedView');
 const notifications = require('./middlewares/flash');
 const dotenv = require('dotenv').config();
-
+const nodeMail = require('nodemailer');
 
 // Set up mongoose and Mongo connection
 
 mongoose
   .connect('mongodb://localhost/splitify', { useNewUrlParser: true })
   .then((x) => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
+    console.log(`Connected to Mongo! Database name: '${x.connections[0].name}'`);
   })
   .catch((err) => {
     console.error('Error connecting to mongo', err);
@@ -51,6 +51,18 @@ app.use(session({
 app.use(flash());
 
 app.use(notifications);
+
+// Set up node Mailer transporter
+
+const transporter = nodemailer.createTransport({
+  host: 'Gmail',
+  port: 587,
+  secure: false, // upgrade later with STARTTLS
+  auth: {
+    user: 'splitifyWebApp@gmail.com',
+    pass: 'splitify2019',
+  },
+});
 
 // Set up current user middleware. Makes the currentUser available in every page
 

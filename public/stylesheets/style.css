@@ -37,8 +37,13 @@ a {
   flex-direction: column;
 }
 
+.nav{
+  background-color: #01233F;
+}
+
 .nav-icons{
   font-size: 1.5rem;
+  color: white;
 }
 
 .title{
