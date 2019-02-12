@@ -1,10 +1,9 @@
-
 function itemAdder() {
   const itemAdder = document.getElementById('item-adder');
   const container = document.getElementById('items-list-container');
 
-  const html = `<input type="text" name="name" Placeholder="Item"> 
-  <input type="number" step="0.01" name="price" Placeholder="€">`;
+  const html = `<input class="item-name" type="text" name="name" Placeholder="Item"> 
+  <input class="item-price" type="number" step="0.01" name="price" Placeholder="€">`;
 
   itemAdder.addEventListener('click', () => {
     const div = document.createElement('div');

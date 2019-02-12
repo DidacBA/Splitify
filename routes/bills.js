@@ -1,6 +1,5 @@
+const { ObjectId } = require('mongoose').Types;
 const express = require('express');
-
-const router = express.Router();
 const User = require('../models/user');
 const Bill = require('../models/bill');
 
@@ -8,6 +7,7 @@ const Bill = require('../models/bill');
 /* GET main page */
 
 /* POST Bill name */
+const router = express.Router();
 
 /* GET name bill */
 
@@ -76,7 +76,7 @@ router.post('/participants', (req, res, next) => {
   const billId = req.session.newBill._id;
   Bill.findByIdAndUpdate(billId, { participants })
     .then((bill) => {
-      const items = bill.items;
+      const { items } = bill;
       res.render('bills/setBill', { participants, items });
     })
     .catch(next);
@@ -86,20 +86,20 @@ router.post('/participants', (req, res, next) => {
 
 router.post('/setBill', (req, res, next) => {
   const itemPayers = Object.values(req.body);
-  const userName = req.session.currentUser.username;
 
   const UpdatedItems = [];
-  const bill = req.session.newBill.items;
+  const billItems = req.session.newBill.items;
 
-  bill.forEach((item, index) => {
+  billItems.forEach((item, index) => {
     item.username = itemPayers[index];
     UpdatedItems.push(item);
   });
 
   const billId = req.session.newBill._id;
   Bill.findByIdAndUpdate(billId, { items: UpdatedItems })
-    .then((bill) => {
-      res.render('bills/details', { bill, userName });
+    .then(() => {
+      res.redirect('/bills/list');
+      req.flash('success', 'You have created a new bill');
     })
     .catch(next);
 });
@@ -120,18 +120,22 @@ router.get('/list', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
   const userName = req.session.currentUser.username;
-  Bill.findById(id)
-    .then((bill) => {
-      // console.log(bill.coords);
-      const long = bill.coords.coordinates[0];
-      const lat = bill.coords.coordinates[1];
-      res.render('bills/details', {
-        bill,
-        userName,
-        long,
-        lat,
-      });
-    }).catch(next);
+  if (ObjectId.isValid(id)) {
+    Bill.findById(id)
+      .then((bill) => {
+        const long = bill.coords.coordinates[0];
+        const lat = bill.coords.coordinates[1];
+        res.render('bills/details', {
+          bill,
+          userName,
+          long,
+          lat,
+        });
+      }).catch(next);
+  } else {
+    req.flash('error', 'Bill doesn\'t exist');
+    res.redirect('/bills/list');
+  }
 });
 
 /* POST settle bill */
@@ -139,7 +143,8 @@ router.get('/:id', (req, res, next) => {
 router.post('/:id/settle', (req, res, next) => {
   const billId = Object.values(req.params);
   Bill.findByIdAndUpdate(billId, { active: false })
-    .then((bill) => {
+    .then(() => {
+      req.flash('success', 'You have succesfully settled the bill');
       res.redirect('/bills/list');
     })
     .catch(next);

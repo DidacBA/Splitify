@@ -1,8 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const User = require('../models/user');
 
 const router = express.Router();
-const User = require('../models/user');
 
 // BCrypt to encrypt passwords
 const bcryptSalt = 10;
@@ -10,10 +10,7 @@ const bcryptSalt = 10;
 // GET signup page
 
 router.get('/signup', (req, res, next) => {
-  const errorMessage = undefined;
-  res.render('auth/signup', {
-    errorMessage
-  });
+  res.render('auth/signup');
 });
 
 // POST signup/create new user
@@ -22,11 +19,14 @@ router.post('/signup', (req, res, next) => {
   const {
     username,
     password,
-    email
+    email,
   } = req.body;
 
   if (username === '' || password === '') {
-    req.flash('warning', 'Empty fields'); //TODO install flash
+    req.flash('warning', 'Empty fields');
+    res.redirect('/signup');
+  } else if (username.length < 6 || username.length > 16) {
+    req.flash('warning', 'Username must be between 6 and 16 characters');
     res.redirect('/signup');
   } else {
     User.findOne({ username })
@@ -37,15 +37,15 @@ router.post('/signup', (req, res, next) => {
           User.create({
             username,
             password: hashPass,
-            email })
+            email,
+          })
             .then(() => {
               res.redirect('/');
             })
-            .catch((error) => {
-              next(error);
-            });
+            .catch(next);
         } else {
-          res.render('auth/signup');
+          req.flash('warning', 'Username or email already in use');
+          res.redirect('/signup');
         }
       })
       .catch(next);
@@ -56,10 +56,7 @@ router.post('/signup', (req, res, next) => {
 // GET login page
 
 router.get('/login', (req, res, next) => {
-  const errorMessage = undefined;
-  res.render('auth/login', {
-    errorMessage
-  });
+  res.render('auth/login');
 });
 
 // POST insert login data from user
@@ -68,23 +65,19 @@ router.post('/login', (req, res, next) => {
   const {
     username,
     password,
-    email,
   } = req.body;
 
-  // Control the user inserts values
   if (username === '' || password === '') {
-    res.render('auth/signup', {
-      errorMessage: 'Indicate a username and a password to sign up',
-    });
+    req.flash('warning', 'Indicate a username and a password to sign up');
+    res.redirect('/login');
     return;
   }
 
   User.findOne({ username })
     .then((user) => {
       if (!user) {
-        res.render('auth/login', {
-          errorMessage: 'The username doesn\'t exist',
-        });
+        req.flash('error', 'The username doesn\'t exist');
+        res.redirect('/login');
         return;
       }
       if (bcrypt.compareSync(password, user.password)) {
@@ -92,9 +85,8 @@ router.post('/login', (req, res, next) => {
         req.session.currentUser = user;
         res.redirect('/');
       } else {
-        res.render('auth/login', {
-          errorMessage: 'Incorrect password',
-        });
+        req.flash('error', 'Incorrect password or username');
+        res.redirect('/login');
       }
     })
     .catch(next);
@@ -105,7 +97,6 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res, next) => {
   req.session.destroy(() => {
     // cannot access session here
-    console.log('I am in destroy');
     res.redirect('login');
   });
 });

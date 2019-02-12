@@ -5,14 +5,14 @@
 
   <div class="list-group">
     <% bills.forEach((bill) => { %>
-      <a href="/bills/<%= bill._id %>" class="list-group-item list-group-item-action extra-margin">
-        <% if (bill.active) {%>
+      <% if (bill.active) {%>
+        <a href="/bills/<%= bill._id %>" class="list-group-item list-group-item-action extra-margin">
           <div class="flex-between">
-            <span class="bill-name"><%= bill.name %></span>
+            <span class="bill-name" value="<%= bill.items %>"><%= bill.name %></span>
             <span class="debt"><span id="user-total">10</span> €</span>
           </div>
-        <% } %>
-      </a>
+        </a>
+      <% } %>
     <% }) %>
   </div>
 </div>

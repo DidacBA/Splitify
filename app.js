@@ -7,13 +7,15 @@ const session = require('express-session');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+const flash = require('connect-flash');
 const protectedView = require('./middlewares/protectedView');
-
+const notifications = require('./middlewares/flash');
+require('dotenv').config();
 
 // Set up mongoose and Mongo connection
 
 mongoose
-  .connect('mongodb://localhost/splitify', { useNewUrlParser: true })
+  .connect(process.env.DB_URL, { useNewUrlParser: true })
   .then((x) => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
   })
@@ -24,7 +26,7 @@ mongoose
 // Connect routers
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const profileRouter = require('./routes/profile');
 const authRouter = require('./routes/auth');
 const billsRouter = require('./routes/bills');
 
@@ -37,13 +39,17 @@ app.use(session({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60, // 1 day
   }),
-  secret: 'some-string',
+  secret: process.env.SECRET,
   resave: true,
   saveUninitialized: true,
   cookie: {
     maxAge: 24 * 60 * 60 * 1000,
   },
 }));
+
+app.use(flash());
+
+app.use(notifications);
 
 // Set up current user middleware. Makes the currentUser available in every page
 
@@ -70,7 +76,7 @@ app.set('layout', 'layouts/layout');
 
 app.use('/', authRouter);
 app.use('/', protectedView, indexRouter);
-app.use('/users', protectedView, usersRouter);
+app.use('/profile', protectedView, profileRouter);
 app.use('/bills', protectedView, billsRouter);
 
 // catch 404 and forward to error handler
