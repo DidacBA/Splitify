@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
+const passwordControl = require('../middlewares/passwordControl');
+
 const router = express.Router();
 
 // BCrypt to encrypt passwords
@@ -15,7 +17,7 @@ router.get('/signup', (req, res, next) => {
 
 // POST signup/create new user
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', passwordControl, (req, res, next) => {
   const {
     username,
     password,
