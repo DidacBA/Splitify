@@ -33,5 +33,14 @@
     </ul>
   </div>
 </div>
+
+<input type="submit" class="btn btn-danger"  id="delete" value="Delete Profile">
+<form action="profile/deleteUser" method="post">
+  <p id="text" hidden>Are you sure you want to delete your account <%= session.username %> ?</p>
+  <input class="btn btn-danger" id="real-delete" type="hidden" value="Delete Permanently">
+</form>
+<input type="hidden" class="btn btn-primary"  id="noDelete" value="No">
+
 <a href="/" class="go-back centered"><i class="fas fa-angle-double-left"></i></a>
 
+<script src="/javascript/deleteAccount.js"></script>
