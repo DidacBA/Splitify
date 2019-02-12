@@ -32,10 +32,33 @@ const bills = [{
   }],
 }];
 
-// User.create(users)
-//   .then(data => console.log('Data added', data))
-//   .then(() => mongoose.connection.close())
-//   .catch(error => console.log('Couldn\'t add files', error));
+const users = [
+  {
+    username: didac,
+    status: true,
+  },
+  {
+    username: test,
+    status: true,
+  },
+  {
+    username: ranieri,
+    status: true,
+  },
+  {
+    username: marc,
+    status: true,
+  },
+  {
+    username: pedro,
+    status: true,
+  },
+];
+
+User.create(users)
+  .then(data => console.log('Data added', data))
+  .then(() => mongoose.connection.close())
+  .catch(error => console.log('Couldn\'t add files', error));
 
 
 Bill.create(bills)

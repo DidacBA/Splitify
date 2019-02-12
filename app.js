@@ -16,7 +16,7 @@ const notifications = require('./middlewares/flash');
 // Set up mongoose and Mongo connection
 
 mongoose
-  .connect(process.env.DB_URL, { useNewUrlParser: true })
+  .connect('mongodb://localhost:27017/splitify', { useNewUrlParser: true })
   .then((x) => {
     console.log(`Connected to Mongo! Database name: '${x.connections[0].name}'`);
   })
@@ -40,7 +40,7 @@ app.use(session({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60, // 1 day
   }),
-  secret: process.env.SECRET,
+  secret: 'splitify',
   resave: true,
   saveUninitialized: true,
   cookie: {

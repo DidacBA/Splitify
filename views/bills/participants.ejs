@@ -1,5 +1,5 @@
 <%- include ../partials/navbar %>
-<%- include('../partials/notifications') %>
+<%- include ../partials/notifications %>
 
 <form action="/bills/participants" method="post">
   <div>
@@ -7,6 +7,5 @@
       <%- include ../partials/friends%>
     <%})%>
   </div>  
-  
-  <button type="submit"><i class="fas fa-arrow-right"></i></button>
+  <button class="arrow-right" type="submit"><i class="fas fa-arrow-right"></i></button>
 </form>

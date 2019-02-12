@@ -66,6 +66,46 @@ a {
   font-weight: bold;
 }
 
+.text-input{
+  border: none;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 60%;
+  margin-bottom: 20%;
+}
+
+.items-list-container{
+  margin-top: 3rem;
+}
+
+.item-input{
+  width: 40%;
+  margin: 0.5rem 4%;
+  text-align: center;
+  font-size: 1.2rem;
+  border: none;
+}
+
+#item-adder{
+  border: none;
+  background-color: #00B7FF;
+  color: white;
+  border-radius: 100px;
+  font-size: 2rem;
+  width: 4rem;
+  height: 4rem;
+  align-self: center;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.arrow-right {
+  border: none;
+  background: none;
+  font-size: 3rem;
+  color: #00B7FF;
+}
+
 .totals{
   width: 40%;
   padding: 1rem;
