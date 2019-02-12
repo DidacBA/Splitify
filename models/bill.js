@@ -10,6 +10,12 @@ const billSchema = new Schema({
     type: ObjectId,
     ref: 'User',
   }],
+  coords: {
+    type: {
+      type: String,
+    },
+    coordinates: [Number],
+  },
   participants: Array,
   items: Array,
   active: {

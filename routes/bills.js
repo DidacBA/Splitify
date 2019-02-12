@@ -6,6 +6,10 @@ const newBill = require('../config/newBill');
 const User = require('../models/user');
 const Bill = require('../models/bill');
 
+
+/* GET main page */
+
+/* POST Bill name */
 const router = express.Router();
 
 /* GET name bill */
@@ -29,6 +33,11 @@ router.post('/', (req, res, next) => {
   const billName = Object.values(req.session.billName);
   const billItems = [];
 
+  const coords = [];
+  coords.push(req.body.long);
+  coords.push(req.body.lat);
+
+
   names.forEach((name, index) => {
     const item = {
       name: names[index],
@@ -41,6 +50,10 @@ router.post('/', (req, res, next) => {
     name: billName,
     creatorId: creator,
     items: billItems,
+    coords: {
+      type: 'Point',
+      coordinates: coords,
+    },
   };
 
   User.findById(creator)
@@ -130,6 +143,7 @@ router.get('/list', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
   const userName = req.session.currentUser.username;
+
   if (ObjectId.isValid(id)) {
     Bill.findById(id)
       .then((bill) => {
@@ -138,6 +152,14 @@ router.get('/:id', (req, res, next) => {
           res.redirect('/bills/list');
         }
         res.render('bills/details', { bill, userName });
+        const long = bill.coords.coordinates[0];
+        const lat = bill.coords.coordinates[1];
+        res.render('bills/details', {
+          bill,
+          userName,
+          long,
+          lat,
+        });
       }).catch(next);
   } else {
     req.flash('error', 'Bill doesn\'t exist');
