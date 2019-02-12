@@ -1,5 +1,8 @@
 const { ObjectId } = require('mongoose').Types;
+const transporter = require('../config/transporter');
 const express = require('express');
+
+const newBill = require('../config/newBill');
 const User = require('../models/user');
 const Bill = require('../models/bill');
 
@@ -43,6 +46,7 @@ router.post('/', (req, res, next) => {
   User.findById(creator)
     .populate('myFriends')
     .then((friends) => {
+      req.session.friends = friends.myFriends;
       const friendsNames = friends.myFriends;
 
       Bill.create(bill)
@@ -61,9 +65,11 @@ router.post('/participants', (req, res, next) => {
   const participants = Object.keys(req.body);
   participants.unshift(req.session.currentUser.username);
   const billId = req.session.newBill._id;
+
   Bill.findByIdAndUpdate(billId, { participants })
     .then((bill) => {
       const { items } = bill;
+
       res.render('bills/setBill', { participants, items });
     })
     .catch(next);
@@ -73,7 +79,9 @@ router.post('/participants', (req, res, next) => {
 
 router.post('/setBill', (req, res, next) => {
   const itemPayers = Object.values(req.body);
-
+  console.log('this is itempayers', itemPayers);
+  const friendsData = req.session.friends;
+  console.log('this is friends data', friendsData);
   const UpdatedItems = [];
   const billItems = req.session.newBill.items;
 
@@ -84,7 +92,22 @@ router.post('/setBill', (req, res, next) => {
 
   const billId = req.session.newBill._id;
   Bill.findByIdAndUpdate(billId, { items: UpdatedItems })
-    .then(() => {
+    .then((bill) => {
+      friendsData.forEach((friend) => {
+        if (itemPayers.indexOf(friend.username !== -1)) {
+          console.log(friend);
+          transporter.sendMail({
+            from: '"Splitify Team" <splitifyWebApp@gmail.com>',
+            to: friend.email,
+            subject: `${friend.username}, You have a new bill`,
+            text: 'You have received a new bill',
+            html: newBill(friend.username, bill.name),
+          })
+            .then(info => console.log(info))
+            .catch(error => console.log(error));
+        }
+      });
+
       res.redirect('/bills/list');
       req.flash('success', 'You have created a new bill');
     })

@@ -24,7 +24,12 @@ router.post('/search', (req, res, next) => {
   const searchField = req.body.search;
   User.find({ username: searchField })
     .then((user) => {
-      res.render('profile/search', { user });
+      if (!user || user.status !== 'Confirmed') {
+        req.flash('warning', 'User doesn\'t exist');
+        res.redirect('/profile');
+      } else {
+        res.render('profile/search', { user });
+      }
     })
     .catch(next);
 });
