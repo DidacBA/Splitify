@@ -4,6 +4,7 @@ const router = express.Router();
 const User = require('../models/user');
 const Bill = require('../models/bill');
 
+
 /* GET main page */
 
 /* POST Bill name */
@@ -29,6 +30,11 @@ router.post('/', (req, res, next) => {
   const billName = Object.values(req.session.billName);
   const billItems = [];
 
+  const coords = [];
+  coords.push(req.body.long);
+  coords.push(req.body.lat);
+
+
   names.forEach((name, index) => {
     const item = {
       name: names[index],
@@ -41,6 +47,10 @@ router.post('/', (req, res, next) => {
     name: billName,
     creatorId: creator,
     items: billItems,
+    coords: {
+      type: 'Point',
+      coordinates: coords,
+    },
   };
 
   User.findById(creator)
@@ -60,13 +70,13 @@ router.post('/', (req, res, next) => {
 
 /* POST Set bill participants */
 
-router.post('/participants', (req,res,next) => {
+router.post('/participants', (req, res, next) => {
   const participants = Object.keys(req.body);
   participants.unshift(req.session.currentUser.username);
   const billId = req.session.newBill._id;
-  Bill.findByIdAndUpdate(billId, { 'participants': participants })
+  Bill.findByIdAndUpdate(billId, { participants })
     .then((bill) => {
-      const items = bill.items;        
+      const items = bill.items;
       res.render('bills/setBill', { participants, items });
     })
     .catch(next);
@@ -87,7 +97,7 @@ router.post('/setBill', (req, res, next) => {
   });
 
   const billId = req.session.newBill._id;
-  Bill.findByIdAndUpdate(billId, { 'items': UpdatedItems })
+  Bill.findByIdAndUpdate(billId, { items: UpdatedItems })
     .then((bill) => {
       res.render('bills/details', { bill, userName });
     })
@@ -98,7 +108,7 @@ router.post('/setBill', (req, res, next) => {
 
 router.get('/list', (req, res, next) => {
   const userName = req.session.currentUser.username;
-  Bill.find({ 'participants': userName })
+  Bill.find({ participants: userName })
     .then((bills) => {
       res.render('bills/list', { bills });
     })
@@ -112,7 +122,15 @@ router.get('/:id', (req, res, next) => {
   const userName = req.session.currentUser.username;
   Bill.findById(id)
     .then((bill) => {
-      res.render('bills/details', { bill, userName });
+      // console.log(bill.coords);
+      const long = bill.coords.coordinates[0];
+      const lat = bill.coords.coordinates[1];
+      res.render('bills/details', {
+        bill,
+        userName,
+        long,
+        lat,
+      });
     }).catch(next);
 });
 

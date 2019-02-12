@@ -32,9 +32,15 @@
   <form action="/bills/<%=bill._id %>/settle" method="post">
     <button type="submit" class="btn btn-success">Settle bill</button>
   </form>
-</div>
+  </div>
 
+  <input id="lat" type="hidden" name="lat" value="<%= lat %>">
+  <input id="long" type="hidden" name="long" value="<%= long %>">
 
+  <div id='map' style='width: 400px; height: 300px;'></div>
+  
+  
 <a href="/" class="centered go-back"><i class="fas fa-angle-double-left"></i></a>
 
 <script src="/javascript/calculator.js"></script>
+<script src="/javascript/mapBox.js"></script>
