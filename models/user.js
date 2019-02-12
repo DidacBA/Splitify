@@ -18,6 +18,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  confirmationCode: {
+    type: String,
+    unique: true,
+  },
+  status: String,
   email: {
     type: String,
     required: true,

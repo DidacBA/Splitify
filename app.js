@@ -8,10 +8,11 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
-const protectedView = require('./middlewares/protectedView');
-const notifications = require('./middlewares/flash');
 const dotenv = require('dotenv').config();
 const nodeMail = require('nodemailer');
+const protectedView = require('./middlewares/protectedView');
+const notifications = require('./middlewares/flash');
+const mailing = require('./middlewares/mailing');
 
 // Set up mongoose and Mongo connection
 
@@ -54,7 +55,7 @@ app.use(notifications);
 
 // Set up node Mailer transporter
 
-const transporter = nodemailer.createTransport({
+const transporter = nodeMail.createTransport({
   host: 'Gmail',
   port: 587,
   secure: false, // upgrade later with STARTTLS
@@ -63,6 +64,8 @@ const transporter = nodemailer.createTransport({
     pass: 'splitify2019',
   },
 });
+
+// app.use(mailing);
 
 // Set up current user middleware. Makes the currentUser available in every page
 

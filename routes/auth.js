@@ -20,6 +20,7 @@ router.post('/signup', (req, res, next) => {
     username,
     password,
     email,
+    confirmationCode,
   } = req.body;
 
   if (username === '' || password === '') {
@@ -38,6 +39,8 @@ router.post('/signup', (req, res, next) => {
             username,
             password: hashPass,
             email,
+            confirmationCode,
+            status: 'Pending confirmation',
           })
             .then(() => {
               res.redirect('/');
