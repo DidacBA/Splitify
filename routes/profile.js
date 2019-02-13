@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/user');
 const uploadCloud = require('../config/cloudinary.js');
+const isEmpty = require('../helpers/helpers');
 
 const router = express.Router();
 
@@ -20,19 +21,11 @@ router.get('/', (req, res, next) => {
 
 /* POST Add friend page */
 
-Object.prototype.isEmpty = function() {
-  for(let key in this) {
-    if(this.hasOwnProperty(key))
-      return false;
-  }
-  return true;
-};
-
 router.post('/search', (req, res, next) => {
   const searchField = req.body.search;
   User.find({ username: searchField })
     .then((user) => {
-      if (user.isEmpty()) {
+      if (isEmpty(user) || user.status !== true) {
         req.flash('warning', 'User doesn\'t exist');
         res.redirect('/profile');
       } else {
@@ -48,15 +41,17 @@ router.post('/', (req, res, next) => {
   const friendId = req.body.id;
   console.log(friendId);
   const userName = req.session.currentUser.username;
-  User.findOneAndUpdate({ username: userName, myFriends: { $ne: 'friendId' } }, { $push: { myFriends: friendId } })
-    .then(() => {
-      req.flash('success', 'Friend added successfully');
-      res.redirect('/profile');
+  User.findOneAndUpdate({ username: userName }, { $push: { myFriends: friendId } })
+    .then((user) => {
+      if (user.myFriends) {
+        req.flash('success', 'Friend added successfully');
+        res.redirect('/profile');
+      } else { 
+        req.flash('error', 'friend already exists');
+        res.redirect('/profile');
+      }
     })
-    .catch(() => {
-      req.flash('error', 'friend already exists');
-      res.redirect('/profile');
-    });
+    .catch(next);
 });
 
 /* POST delete friend from friend list */
