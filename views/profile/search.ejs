@@ -1,14 +1,15 @@
 <%- include ../partials/navbar %>
 <%- include ../partials/notifications %>
 
-<h1>Search Result</h1>
-
-<form action="/profile" method="post">
-  <p><%= user[0].username %></p>
-  <p><%= user[0].email %></p>
-  <p> Joined in <%= user[0].createdAt %></p>
-  <input type="hidden" name="id" value="<%= user[0]._id %>">
-  <button type="submit">Add friend</button>
-</form>
-<a href="/users/profile">Go back</a>
+<div class="container">
+  <form action="/profile" method="post">
+    <img class="profile-image" src="<%= user[0].imgPath %>" alt="profile picture">
+    <p><%= user[0].username %></p>
+    <p><%= user[0].email %></p>
+    <p> Joined in <%= user[0].createdAt %></p>
+    <input type="hidden" name="id" value="<%= user[0]._id %>">
+    <button type="submit">Add friend</button>
+  </form>
+  <a href="/profile">Go back</a>
+</div>
 

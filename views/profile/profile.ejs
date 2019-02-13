@@ -4,7 +4,7 @@
 <div class="profile">
   <div class="card" style="width: 20rem;">
     <h5 class="card-title"><%= session.username %>'s Settings</h5>
-    <img src="<%= session.imgPath %>" class="card-img-top" alt="...">
+    <img class="profile-image" src="<%= session.imgPath %>" class="card-img-top" alt="...">
       <form id="image-upload" action="/profile/add-profile-photo" method="post" enctype="multipart/form-data">
         <input type="file" name="photo">
         <input type="submit" value="SAVE">

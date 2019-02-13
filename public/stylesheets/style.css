@@ -219,7 +219,7 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 #bill-button-container {
   text-align: center;
   padding: 0;
-  margin-top: 25%;
+  margin-top: 20%;
 }
 
 #bill-button {
@@ -302,7 +302,7 @@ font-size: 1rem;
 .profile h5 {
   margin: 1rem;
 }
-.profile img {
+.profile-image {
   margin: 1rem auto -1.7rem auto;
   height: 10rem;
   width: 10rem;
