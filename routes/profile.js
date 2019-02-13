@@ -93,3 +93,15 @@ router.post('/add-profile-photo', uploadCloud.single('photo'), (req, res, next) 
     })
     .catch(next);
 });
+
+/* POST user */
+router.post('/deleteUser', (req, res, next) => {
+  const userId = req.session.currentUser._id;
+  User.findByIdAndDelete(userId)
+    .then(
+      req.session.destroy(() => {
+        // cannot access session here
+        res.redirect('/');
+      }),
+    ).catch(next);
+});
