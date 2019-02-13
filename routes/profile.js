@@ -24,7 +24,7 @@ router.post('/search', (req, res, next) => {
   const searchField = req.body.search;
   User.find({ username: searchField })
     .then((user) => {
-      if (!user || user.status !== 'Confirmed') {
+      if (!user) {
         req.flash('warning', 'User doesn\'t exist');
         res.redirect('/profile');
       } else {
@@ -38,13 +38,17 @@ router.post('/search', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const friendId = req.body.id;
+  console.log(friendId);
   const userName = req.session.currentUser.username;
-  User.findOneAndUpdate({ username: userName }, { $push: { myFriends: friendId } })
+  User.findOneAndUpdate({ username: userName, myFriends: { $ne: 'friendId' } }, { $push: { myFriends: friendId } })
     .then(() => {
       req.flash('success', 'Friend added successfully');
       res.redirect('/profile');
     })
-    .catch(next);
+    .catch(() => {
+      req.flash('error', 'friend already exists');
+      res.redirect('/profile');
+    });
 });
 
 /* POST delete friend from friend list */

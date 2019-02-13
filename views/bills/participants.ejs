@@ -1,11 +1,13 @@
 <%- include ../partials/navbar %>
 <%- include ../partials/notifications %>
 
-<form action="/bills/participants" method="post">
-  <div>
-    <% friendsNames.forEach((name, index) => {%>
-      <%- include ../partials/friends%>
-    <%})%>
-  </div>  
-  <button class="arrow-right" type="submit"><i class="fas fa-arrow-right"></i></button>
-</form>
+<div class="container">
+  <form action="/bills/participants" method="post">
+    <div>
+      <% friendsNames.forEach((name, index) => {%>
+        <%- include ../partials/friends%>
+      <%})%>
+    </div>  
+    <button class="arrow-right" type="submit"><i class="fas fa-arrow-right"></i></button>
+  </form>
+</div>

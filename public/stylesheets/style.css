@@ -17,6 +17,23 @@ a {
   display: none;
 }
 
+/* Focus */
+
+input:focus {
+  outline:none;
+}
+
+a:focus {
+  outline: none;
+}
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+
+/* General classes */
+
 .item-row{
   display: flex;
   flex-direction: row;
@@ -62,6 +79,12 @@ a {
   margin: 0.5rem 0;
 }
 
+.go-back{
+  font-size: 3rem;
+}
+
+/* Bill name */
+
 .bill-name{
   font-weight: bold;
 }
@@ -74,6 +97,8 @@ a {
   margin-bottom: 20%;
 }
 
+/* Bill items */
+
 .items-list-container{
   margin-top: 3rem;
 }
@@ -84,6 +109,10 @@ a {
   text-align: center;
   font-size: 1.2rem;
   border: none;
+}
+
+.item{
+  font-weight: bold;
 }
 
 #item-adder{
@@ -106,6 +135,18 @@ a {
   color: #00B7FF;
 }
 
+/* Bill Participants */
+
+.checkbox{
+  border: none;
+}
+
+.checkbox-label{
+  font-weight: bold;
+}
+
+/* Bill details */
+
 .totals{
   width: 40%;
   padding: 1rem;
@@ -119,9 +160,6 @@ a {
   padding-top: 1rem;
 }
 
-.go-back{
-  font-size: 3rem;
-}
 /* Bill creation button styles */
 
 #bill-button-container {
