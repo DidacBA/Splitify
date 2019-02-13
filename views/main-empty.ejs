@@ -1,3 +1,5 @@
+
+
 <%- include ./partials/navbar %>
 <%- include ./partials/notifications %>
 
@@ -8,21 +10,8 @@
 <div id="active-bills-button-container" class="container-fluid">
   <a id="active-bills-button" class="list-group-item list-group-item-action flex-column" href="/bills/list">
   <div>
-  <span>
-    <%= bills[0].name %>
-  </span>
-  <span class="bill-date-main">
-    <%= dates[0] %>
-  </span>
-</div>
-<div>
-  <span>
-    <%= bills[1].name %>
-  </span>
-  <span class="bill-date-main">
-    <%= dates[1] %>
-  </span>
-</div>
+  <span class="no-bills">Start paying motherfucker!</span>
+  </div>
   </a>
 </div>
 
