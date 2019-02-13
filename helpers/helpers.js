@@ -1,7 +1,7 @@
 
 const isEmpty = (object) => {
-  for (let key in this) {
-    if(this.hasOwnProperty(key))
+  for (let key in object) {
+    if(object.hasOwnProperty(key))
       return false;
   }
   return true;

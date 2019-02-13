@@ -25,7 +25,10 @@ router.post('/search', (req, res, next) => {
   const searchField = req.body.search;
   User.find({ username: searchField })
     .then((user) => {
-      if (isEmpty(user) || user.status !== true) {
+      if (isEmpty(user)) {
+        req.flash('warning', 'User doesn\'t exist');
+        res.redirect('/profile');
+      } else if (user.status === 'false') {
         req.flash('warning', 'User doesn\'t exist');
         res.redirect('/profile');
       } else {
