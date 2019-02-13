@@ -303,11 +303,20 @@ font-size: 1rem;
   margin: 1rem;
 }
 .profile img {
-  margin: 1rem auto;
+  margin: 1rem auto -1.7rem auto;
   height: 10rem;
   width: 10rem;
   border-radius: 100%;
 }
+
+#camera-button{
+  font-size: 2rem;
+  color: #01233F;
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+}
+
 #friend-search {
   display: flex;
   flex-direction: row;
