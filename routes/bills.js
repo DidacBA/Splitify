@@ -151,7 +151,6 @@ router.get('/:id', (req, res, next) => {
           req.flash('error', 'Bill doesn\'t exist');
           res.redirect('/bills/list');
         }
-        res.render('bills/details', { bill, userName });
         const long = bill.coords.coordinates[0];
         const lat = bill.coords.coordinates[1];
         res.render('bills/details', {

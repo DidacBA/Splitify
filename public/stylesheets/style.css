@@ -54,6 +54,13 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
   flex-direction: column;
 }
 
+.flex-wrap{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .nav{
   background-color: #01233F;
 }
@@ -137,18 +144,61 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 
 /* Bill Participants */
 
-.checkbox{
-  border: none;
+.participants-form{
+  margin: 3rem 1rem 0 1rem;
 }
 
 .checkbox-label{
   font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.checkbox{
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Set Bill */
+
+.setbill-form{
+  margin-top: 2rem;
+}
+
+.item-name{
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.item-price{
+  font-size: 1.2rem
+}
+
+.participant-radio{
+  width: 25%;
+}
+
+.radio-button{
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.participant-label{
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.participant-radio-pair{
+  align-items: center;
+  margin: 0 1rem;
 }
 
 /* Bill details */
 
+.bill-title{
+  margin-top: 1.5rem;
+}
+
 .totals{
-  width: 40%;
   padding: 1rem;
   text-align: center;
   background-color: rgba(200, 200, 200, 0.2);
@@ -158,6 +208,10 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
   display: flex;
   justify-content: center;
   padding-top: 1rem;
+}
+
+.settle{
+  margin-left: 37%;
 }
 
 /* Bill creation button styles */
