@@ -1,18 +1,19 @@
 <%- include ../partials/navbar %>
 <%- include ../partials/notifications %>
 
-<div class="profile">
-  <div class="card" style="width: 20rem;">
-    <h5 class="card-title"><%= session.username %>'s Settings</h5>
+<div class="container profile">
+    <h5>Hi, <%= session.username %></h5>
+
     <div id="profile-photo-container">
-      <img src="<%= session.imgPath %>" class="card-img-top" alt="...">
+      <img class="profile-image" src="<%= session.imgPath %>" class="card-img-top" alt="...">
       <form id="image-upload" action="/profile/add-profile-photo" method="post" enctype="multipart/form-data">
         <input id="selected-photo" type="file" name="photo" onchange="form.submit()" style="display: none;">
         <input id="hidden-button" type="button" value="Change pic" onclick="document.getElementById('selected-photo').click();" style="display: none;">
       </form>
       <button id="camera-button" onclick="document.getElementById('hidden-button').click();"><i class="fas fa-camera-retro"></i></button> 
     </div>
-      <p class="card-text"><%= session.email %></p>
+
+      <p class="user-email"><%= session.email %></p>
       <div class="list-group-item">
         <h5>Add friends</h5>
         <form id="friend-search" action="/profile/search" class="form-inline my-2 my-lg-0" method="post">
@@ -20,10 +21,10 @@
           <button class="btn btn-primary" type="submit">Search friend</button>
         </form>
       </div>
-    <h5 class="card-title">Friends</h3>
+    <h5>Friends</h3>
     <ul class="list-group">
       <% friendsNames.forEach((friend) => { %>
-      <li class="list-group-item">
+      <li class="list-group-item list-item">
         <div class="friends-list">
           <p><%= friend.username %> </p> 
           <form action="/profile/<%= friend._id %>/delete" method="post">
@@ -33,18 +34,19 @@
       </li>
       <% }) %>
     </ul>
-  </div>
 </div>
 
-<input type="submit" class="btn btn-danger"  id="delete" value="Delete Profile">
-<form action="profile/deleteUser" method="post">
-  <p id="text" hidden>Are you sure you want to delete your account <%= session.username %> ?</p>
-  <input class="btn btn-danger" id="real-delete" type="hidden" value="Delete Permanently">
-</form>
-<input type="hidden" class="btn btn-primary"  id="noDelete" value="No">
+<input type="submit" class="btn btn-danger delete-button"  id="delete" value="Delete Profile">
+
+<div class="container hidden-formulary">
+  <form action="profile/deleteUser" method="post">
+    <p class="delete-message" id="text" hidden>Are you sure you want to delete your account <%= session.username %> ?</p>
+    <input class="btn btn-danger delete-final" id="real-delete" type="hidden" value="Delete Permanently">
+  </form>
+  <input type="hidden" class="btn btn-primary"  id="noDelete" value="No">
+</div>
 
 <a href="/" class="go-back centered"><i class="fas fa-angle-double-left"></i></a>
 
 <script src="/javascript/deleteAccount.js"></script>
-  </div>
-  
+

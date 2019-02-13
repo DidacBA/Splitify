@@ -6,6 +6,23 @@
 </div>
 
 <div id="active-bills-button-container" class="container-fluid">
-  <a id="active-bills-button" class="btn btn-primary" href="/bills/list"><span>Active bills</span></a>
+  <a id="active-bills-button" class="list-group-item list-group-item-action flex-column" href="/bills/list">
+    <div>
+      <span>
+        <%= bills[0].name %>
+      </span>
+      <span class="bill-date-main">
+        <%= bill1Date %>
+      </span>
+    </div>
+    <div>
+      <span>
+        <%= bills[1].name %>
+      </span>
+      <span class="bill-date-main">
+        <%= bill2Date %>
+      </span>
+    </div>
+  </a>
 </div>
 
