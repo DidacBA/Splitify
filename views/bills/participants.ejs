@@ -2,7 +2,7 @@
 <%- include ../partials/notifications %>
 
 <div class="container">
-  <form action="/bills/participants" method="post">
+  <form class="participants-form flex-column" action="/bills/participants" method="post">
     <div>
       <% friendsNames.forEach((name, index) => {%>
         <%- include ../partials/friends%>

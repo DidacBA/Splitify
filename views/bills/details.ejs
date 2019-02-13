@@ -3,7 +3,7 @@
 
 <div class="container">
 
-  <h3 class="title"><%= bill.name %></h1>
+  <h3 class="title bill-title"><%= bill.name %></h1>
 
   <% bill.participants.forEach((participant) => { %>
     <div class="container">
@@ -31,7 +31,7 @@
   </div>
 
   <form action="/bills/<%=bill._id %>/settle" method="post">
-    <button type="submit" class="btn btn-success">Settle bill</button>
+    <button type="submit" class="btn btn-success settle">Settle bill</button>
   </form>
   </div>
 

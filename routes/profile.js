@@ -23,6 +23,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/search', (req, res, next) => {
   const searchField = req.body.search;
+
   User.find({ username: searchField })
     .then((user) => {
       if (isEmpty(user)) {
@@ -42,17 +43,11 @@ router.post('/search', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const friendId = req.body.id;
-  console.log(friendId);
   const userName = req.session.currentUser.username;
   User.findOneAndUpdate({ username: userName }, { $push: { myFriends: friendId } })
-    .then((user) => {
-      if (user.myFriends) {
-        req.flash('success', 'Friend added successfully');
-        res.redirect('/profile');
-      } else { 
-        req.flash('error', 'friend already exists');
-        res.redirect('/profile');
-      }
+    .then(() => {
+      req.flash('success', 'Friend added successfully');
+      res.redirect('/profile');
     })
     .catch(next);
 });

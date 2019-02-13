@@ -27,7 +27,7 @@ router.post('/signup', passwordControl, (req, res, next) => {
     confirmationCode,
   } = req.body;
 
-  const confirmationURL = `http://localhost:3000/confirm/${confirmationCode}`;
+  const confirmationURL = `http://splitify.herokuapp.com/confirm/${confirmationCode}`;
 
   if (username === '' || password === '') {
     req.flash('warning', 'Empty fields');
