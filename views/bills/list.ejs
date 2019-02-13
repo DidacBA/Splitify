@@ -7,7 +7,7 @@
   <div class="list-group">
     <% bills.forEach((bill) => { %>
       <% if (bill.active) {%>
-        <a href="/bills/<%= bill._id %>" class="list-group-item list-group-item-action extra-margin">
+        <a href="/bills/list/<%= bill._id %>" class="list-group-item list-group-item-action extra-margin">
           <div class="flex-between">
             <span class="bill-name" value="<%= bill.items %>"><%= bill.name %></span>
             <span class="debt"><span id="user-total">10</span> €</span>

@@ -140,7 +140,7 @@ router.get('/list', (req, res, next) => {
 
 /* GET bill details */
 
-router.get('/:id', (req, res, next) => {
+router.get('/list/:id', (req, res, next) => {
   const { id } = req.params;
   const userName = req.session.currentUser.username;
 
@@ -150,15 +150,16 @@ router.get('/:id', (req, res, next) => {
         if (!bill) {
           req.flash('error', 'Bill doesn\'t exist');
           res.redirect('/bills/list');
+        } else {
+          const long = bill.coords.coordinates[0];
+          const lat = bill.coords.coordinates[1];
+          res.render('bills/details', {
+            bill,
+            userName,
+            long,
+            lat,
+          });
         }
-        const long = bill.coords.coordinates[0];
-        const lat = bill.coords.coordinates[1];
-        res.render('bills/details', {
-          bill,
-          userName,
-          long,
-          lat,
-        });
       }).catch(next);
   } else {
     req.flash('error', 'Bill doesn\'t exist');
