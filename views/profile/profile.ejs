@@ -1,16 +1,15 @@
-
 <%- include ../partials/navbar %>
+<%- include ../partials/notifications %>
 
 <div class="profile">
   <div class="card" style="width: 20rem;">
     <h5 class="card-title"><%= session.username %>'s Settings</h5>
     <img src="<%= session.imgPath %>" class="card-img-top" alt="...">
       <form id="image-upload" action="/profile/add-profile-photo" method="post" enctype="multipart/form-data">
-        <label for="photo">Photo</label>
         <input type="file" name="photo">
         <input type="submit" value="SAVE">
       </form>
-      <p class="card-text"><strong>Email: </strong><%= session.email %></p>
+      <p class="card-text"><%= session.email %></p>
       <div class="list-group-item">
         <h5>Add friends</h5>
         <form id="friend-search" action="/profile/search" class="form-inline my-2 my-lg-0" method="post">
@@ -44,3 +43,5 @@
 <a href="/" class="go-back centered"><i class="fas fa-angle-double-left"></i></a>
 
 <script src="/javascript/deleteAccount.js"></script>
+  </div>
+  

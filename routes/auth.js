@@ -1,6 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const transporter = require('../config/transporter');
+const verifyMessage = require('../config/verifyMail');
 
 const passwordControl = require('../middlewares/passwordControl');
 
@@ -22,13 +24,16 @@ router.post('/signup', passwordControl, (req, res, next) => {
     username,
     password,
     email,
+    confirmationCode,
   } = req.body;
+
+  const confirmationURL = `http://localhost:3000/confirm/${confirmationCode}`;
 
   if (username === '' || password === '') {
     req.flash('warning', 'Empty fields');
     res.redirect('/signup');
-  } else if (username.length < 6 || username.length > 16) {
-    req.flash('warning', 'Username must be between 6 and 16 characters');
+  } else if (username.length < 4 || username.length > 16) {
+    req.flash('warning', 'Username must be between 4 and 16 characters');
     res.redirect('/signup');
   } else {
     User.findOne({ username })
@@ -40,20 +45,42 @@ router.post('/signup', passwordControl, (req, res, next) => {
             username,
             password: hashPass,
             email,
+            confirmationCode,
           })
             .then(() => {
-              res.redirect('/');
+              console.log('I am in then');
+              transporter.sendMail({
+                from: '"Splitify Team" <splitifyWebApp@gmail.com>',
+                to: email,
+                subject: `Welcome to Splitify, ${username}`,
+                text: 'Please click on the following url to confirm your account',
+                html: verifyMessage(confirmationURL),
+              })
+                .then(() => {
+                  req.flash('success', 'Account created. You will receive a confirmation mail shortly');
+                  res.redirect('/');
+                })
+                .catch(error => console.log(error));
+              
             })
-            .catch(next);
-        } else {
-          req.flash('warning', 'Username or email already in use');
-          res.redirect('/signup');
+            .catch(() => {
+              req.flash('warning', 'Username or email already in use');
+              res.redirect('/signup');
+            });
         }
       })
       .catch(next);
   }
 });
 
+// GET account confirmation
+
+router.get('/confirm/:confirmCode', (req, res, next) => {
+  const confirmation = req.params.confirmCode;
+  User.findOneAndUpdate({ confirmationCode: confirmation }, { status: true })
+    .then(res.render('auth/login'))
+    .catch(next);
+});
 
 // GET login page
 
@@ -79,6 +106,11 @@ router.post('/login', (req, res, next) => {
     .then((user) => {
       if (!user) {
         req.flash('error', 'The username doesn\'t exist');
+        res.redirect('/login');
+        return;
+      }
+      if (user.status === 'Pending confirmation') {
+        req.flash('error', 'Account is not active. Please check your email');
         res.redirect('/login');
         return;
       }

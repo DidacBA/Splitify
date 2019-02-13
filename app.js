@@ -8,16 +8,17 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
+const dotenv = require('dotenv').config();
+
 const protectedView = require('./middlewares/protectedView');
 const notifications = require('./middlewares/flash');
-require('dotenv').config();
 
 // Set up mongoose and Mongo connection
 
 mongoose
-  .connect(process.env.DB_URL, { useNewUrlParser: true })
+  .connect('mongodb://localhost:27017/splitify', { useNewUrlParser: true })
   .then((x) => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
+    console.log(`Connected to Mongo! Database name: '${x.connections[0].name}'`);
   })
   .catch((err) => {
     console.error('Error connecting to mongo', err);
@@ -39,7 +40,7 @@ app.use(session({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60, // 1 day
   }),
-  secret: process.env.SECRET,
+  secret: 'splitify',
   resave: true,
   saveUninitialized: true,
   cookie: {

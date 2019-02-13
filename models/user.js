@@ -12,11 +12,19 @@ const userSchema = new Schema({
   },
   imgPath: {
     type: String,
-    default: 'https://i.imgur.com/etjgJ2D.jpg',
+    default: 'https://i.imgur.com/gtWsPu9.jpg',
   },
   password: {
     type: String,
     required: true,
+  },
+  confirmationCode: {
+    type: String,
+    unique: true,
+  },
+  status: {
+    type: Boolean,
+    default: false,
   },
   email: {
     type: String,
