@@ -6,9 +6,10 @@
     <h5 class="card-title"><%= session.username %>'s Settings</h5>
     <img src="<%= session.imgPath %>" class="card-img-top" alt="...">
       <form id="image-upload" action="/profile/add-profile-photo" method="post" enctype="multipart/form-data">
-        <input type="file" name="photo">
-        <input type="submit" value="SAVE">
+        <input id="selected-photo" type="file" name="photo" onchange="form.submit()" style="display: none;">
+        <input id="hidden-button" type="button" value="Change pic" onclick="document.getElementById('selected-photo').click();" style="display: none;">
       </form>
+      <button onclick="document.getElementById('hidden-button').click();">Change pic</button>
       <p class="card-text"><%= session.email %></p>
       <div class="list-group-item">
         <h5>Add friends</h5>
