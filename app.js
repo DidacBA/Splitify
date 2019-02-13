@@ -40,7 +40,7 @@ app.use(session({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60, // 1 day
   }),
-  secret: process.env.SECRET,
+  secret: 'splitify',
   resave: true,
   saveUninitialized: true,
   cookie: {

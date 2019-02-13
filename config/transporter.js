@@ -1,7 +1,7 @@
 const nodeMail = require('nodemailer');
 
 const transporter = nodeMail.createTransport({
-  service : 'gmail',
+  service: 'gmail',
   port: 587,
   secure: false, // upgrade later with STARTTLS
   auth: {

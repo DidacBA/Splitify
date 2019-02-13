@@ -1,12 +1,13 @@
 <%- include ../partials/navbar %>
-<%- include('../partials/notifications') %>
+<%- include ../partials/notifications %>
 
-<form action="/bills/participants" method="post">
-  <div>
-    <% friendsNames.forEach((name, index) => {%>
-      <%- include ../partials/friends%>
-    <%})%>
-  </div>  
-  
-  <button type="submit"><i class="fas fa-arrow-right"></i></button>
-</form>
+<div class="container">
+  <form class="participants-form flex-column" action="/bills/participants" method="post">
+    <div>
+      <% friendsNames.forEach((name, index) => {%>
+        <%- include ../partials/friends%>
+      <%})%>
+    </div>  
+    <button class="arrow-right" type="submit"><i class="fas fa-arrow-right"></i></button>
+  </form>
+</div>

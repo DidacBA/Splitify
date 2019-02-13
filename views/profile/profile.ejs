@@ -1,14 +1,17 @@
 <%- include ../partials/navbar %>
-<%- include('../partials/notifications') %>
+<%- include ../partials/notifications %>
 
 <div class="profile">
   <div class="card" style="width: 20rem;">
     <h5 class="card-title"><%= session.username %>'s Settings</h5>
-    <img src="<%= session.imgPath %>" class="card-img-top" alt="...">
+    <div id="profile-photo-container">
+      <img src="<%= session.imgPath %>" class="card-img-top" alt="...">
       <form id="image-upload" action="/profile/add-profile-photo" method="post" enctype="multipart/form-data">
-        <input type="file" name="photo">
-        <input type="submit" value="SAVE">
+        <input id="selected-photo" type="file" name="photo" onchange="form.submit()" style="display: none;">
+        <input id="hidden-button" type="button" value="Change pic" onclick="document.getElementById('selected-photo').click();" style="display: none;">
       </form>
+      <button id="camera-button" onclick="document.getElementById('hidden-button').click();"><i class="fas fa-camera-retro"></i></button> 
+    </div>
       <p class="card-text"><%= session.email %></p>
       <div class="list-group-item">
         <h5>Add friends</h5>
@@ -31,16 +34,17 @@
       <% }) %>
     </ul>
   </div>
-  </div>
-  
-<button id="delete-button">Delete your account</button>
-<div class="hidden" id="delete-window">
-  <form action="" method="post">
-  <button type="submit">Delete</button>
-  <a href="/profile">Go back</a>
-  </form>
 </div>
+
+<input type="submit" class="btn btn-danger"  id="delete" value="Delete Profile">
+<form action="profile/deleteUser" method="post">
+  <p id="text" hidden>Are you sure you want to delete your account <%= session.username %> ?</p>
+  <input class="btn btn-danger" id="real-delete" type="hidden" value="Delete Permanently">
+</form>
+<input type="hidden" class="btn btn-primary"  id="noDelete" value="No">
+
 <a href="/" class="go-back centered"><i class="fas fa-angle-double-left"></i></a>
 
-<script src="/javascript/deleteWindow.js"></script>
-
+<script src="/javascript/deleteAccount.js"></script>
+  </div>
+  

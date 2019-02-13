@@ -4,6 +4,8 @@ const User = require('../models/user');
 const transporter = require('../config/transporter');
 const verifyMessage = require('../config/verifyMail');
 
+const passwordControl = require('../middlewares/passwordControl');
+
 const router = express.Router();
 
 // BCrypt to encrypt passwords
@@ -17,7 +19,7 @@ router.get('/signup', (req, res, next) => {
 
 // POST signup/create new user
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', passwordControl, (req, res, next) => {
   const {
     username,
     password,
@@ -25,7 +27,7 @@ router.post('/signup', (req, res, next) => {
     confirmationCode,
   } = req.body;
 
-  const confirmationURL = `http://localhost:3000/confirm/${confirmationCode}`;
+  const confirmationURL = `http://splitify.herokuapp.com/confirm/${confirmationCode}`;
 
   if (username === '' || password === '') {
     req.flash('warning', 'Empty fields');
@@ -44,9 +46,9 @@ router.post('/signup', (req, res, next) => {
             password: hashPass,
             email,
             confirmationCode,
-            status: 'Pending confirmation',
           })
             .then(() => {
+              console.log('I am in then');
               transporter.sendMail({
                 from: '"Splitify Team" <splitifyWebApp@gmail.com>',
                 to: email,
@@ -54,11 +56,12 @@ router.post('/signup', (req, res, next) => {
                 text: 'Please click on the following url to confirm your account',
                 html: verifyMessage(confirmationURL),
               })
-                .then(info => console.log(info))
+                .then(() => {
+                  req.flash('success', 'Account created. You will receive a confirmation mail shortly');
+                  res.redirect('/');
+                })
                 .catch(error => console.log(error));
               
-              req.flash('success', 'Account created. You will receive a confirmation mail shortly');
-              res.redirect('/');
             })
             .catch(() => {
               req.flash('warning', 'Username or email already in use');
@@ -74,7 +77,7 @@ router.post('/signup', (req, res, next) => {
 
 router.get('/confirm/:confirmCode', (req, res, next) => {
   const confirmation = req.params.confirmCode;
-  User.findOneAndUpdate({ confirmationCode: confirmation }, { status: 'Confirmed' })
+  User.findOneAndUpdate({ confirmationCode: confirmation }, { status: true })
     .then(res.render('auth/login'))
     .catch(next);
 });

@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/user');
 const uploadCloud = require('../config/cloudinary.js');
+const isEmpty = require('../helpers/helpers');
 
 const router = express.Router();
 
@@ -22,9 +23,13 @@ router.get('/', (req, res, next) => {
 
 router.post('/search', (req, res, next) => {
   const searchField = req.body.search;
+
   User.find({ username: searchField })
     .then((user) => {
-      if (!user || user.status !== 'Confirmed') {
+      if (isEmpty(user)) {
+        req.flash('warning', 'User doesn\'t exist');
+        res.redirect('/profile');
+      } else if (user.status === 'false') {
         req.flash('warning', 'User doesn\'t exist');
         res.redirect('/profile');
       } else {
@@ -80,4 +85,16 @@ router.post('/add-profile-photo', uploadCloud.single('photo'), (req, res, next) 
         .catch(next);
     })
     .catch(next);
+});
+
+/* POST user */
+router.post('/deleteUser', (req, res, next) => {
+  const userId = req.session.currentUser._id;
+  User.findByIdAndDelete(userId)
+    .then(
+      req.session.destroy(() => {
+        // cannot access session here
+        res.redirect('/');
+      }),
+    ).catch(next);
 });

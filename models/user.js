@@ -22,7 +22,10 @@ const userSchema = new Schema({
     type: String,
     unique: true,
   },
-  status: String,
+  status: {
+    type: Boolean,
+    default: false,
+  },
   email: {
     type: String,
     required: true,

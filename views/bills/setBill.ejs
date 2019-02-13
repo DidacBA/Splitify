@@ -1,24 +1,26 @@
 <%- include ../partials/navbar %>
-<%- include('../partials/notifications') %>
+<%- include ../partials/notifications %>
 
-<h1>Set Bill</h1>
+<div class="container">
+  <form class="flex-column setbill-form" action="/bills/setBill" method="post">
 
-<form action="/bills/setBill" method="post">
+    <div class="flex-column">
+      <% items.forEach((item) => { %>
+      <div class="flex-column">
+        <p class="extra-margin"><span class="item-name"><%= item.name %></span> <span class="item-price"><%= item.price %></span>€</p>
+        <div class="flex-wrap">
+            <% participants.forEach((participant) => { %>
+                <div class="flex-column participant-radio-pair">
+                  <label class="participant-label" for="item"><%= participant %></label>
+                  <input class="radio-button" type="radio" name="<%= item.name %>" value="<%= participant %>">
+                </div>
+            <% }) %>
+        </div>
+      </div>
+      <hr>
+      <%})%>
+      <button class="arrow-right" type="submit"><i class="fas fa-arrow-right"></i></button>
+    </div>  
 
-  <div>
-    <% items.forEach((item) => { %>
-    <div class="item-row">
-      <p><%= item.name %></p>
-      <p><%= item.price %></p>
-      <fieldset id="<%= item.name %>">
-        <% participants.forEach((participant) => { %>
-          <label for="item"><%= participant %></label>
-          <input type="radio" name="<%= item.name %>" value="<%= participant %>">
-        <% }) %>
-      </fieldset>
-    </div>
-    <%})%>
-    <button type="submit"><i class="fas fa-arrow-right"></i></button>
-  </div>  
-
-</form>
+  </form>
+</div>
