@@ -5,8 +5,8 @@ const transporter = nodeMail.createTransport({
   port: 587,
   secure: false, // upgrade later with STARTTLS
   auth: {
-    user: 'splitifyWebApp@gmail.com',
-    pass: 'splitify2019',
+    user: process.env.SPLITIFY_GMAIL,
+    pass: process.env.SPLITIFY_GMAIL_PASSWORD,
   },
 });
 

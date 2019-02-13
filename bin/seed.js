@@ -5,7 +5,7 @@ require('dotenv').config();
 
 
 mongoose
-  .connect('mongodb://localhost:27017/splitify', {
+  .connect('process.env.DB_URL', {
     useNewUrlParser: true,
   })
   .then((x) => {
