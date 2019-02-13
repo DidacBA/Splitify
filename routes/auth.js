@@ -44,9 +44,9 @@ router.post('/signup', (req, res, next) => {
             password: hashPass,
             email,
             confirmationCode,
-            status: 'Pending confirmation',
           })
             .then(() => {
+              console.log('I am in then');
               transporter.sendMail({
                 from: '"Splitify Team" <splitifyWebApp@gmail.com>',
                 to: email,
@@ -54,11 +54,12 @@ router.post('/signup', (req, res, next) => {
                 text: 'Please click on the following url to confirm your account',
                 html: verifyMessage(confirmationURL),
               })
-                .then(info => console.log(info))
+                .then(() => {
+                  req.flash('success', 'Account created. You will receive a confirmation mail shortly');
+                  res.redirect('/');
+                })
                 .catch(error => console.log(error));
               
-              req.flash('success', 'Account created. You will receive a confirmation mail shortly');
-              res.redirect('/');
             })
             .catch(() => {
               req.flash('warning', 'Username or email already in use');
@@ -74,7 +75,7 @@ router.post('/signup', (req, res, next) => {
 
 router.get('/confirm/:confirmCode', (req, res, next) => {
   const confirmation = req.params.confirmCode;
-  User.findOneAndUpdate({ confirmationCode: confirmation }, { status: 'Confirmed' })
+  User.findOneAndUpdate({ confirmationCode: confirmation }, { status: true })
     .then(res.render('auth/login'))
     .catch(next);
 });
