@@ -20,11 +20,19 @@ router.get('/', (req, res, next) => {
 
 /* POST Add friend page */
 
+Object.prototype.isEmpty = function() {
+  for(let key in this) {
+    if(this.hasOwnProperty(key))
+      return false;
+  }
+  return true;
+};
+
 router.post('/search', (req, res, next) => {
   const searchField = req.body.search;
   User.find({ username: searchField })
     .then((user) => {
-      if (!user || user.status !== 'Confirmed') {
+      if (user.isEmpty()) {
         req.flash('warning', 'User doesn\'t exist');
         res.redirect('/profile');
       } else {
