@@ -5,11 +5,9 @@ const passwordControl = (req, res, next) => {
 
   const special = /\W|_/g; // special characters and spaces
   const specialChar = password.match(special);
-  console.log(specialChar);
 
   const lowerCase = /[a-z]/g;
   const lowerCaseLetter = password.match(lowerCase);
-  console.log(lowerCaseLetter);
 
   const numbers = /[0-9]/g;
   const numberInclude = password.match(numbers);

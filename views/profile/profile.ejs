@@ -4,11 +4,15 @@
 <div class="profile">
   <div class="card" style="width: 20rem;">
     <h5 class="card-title"><%= session.username %>'s Settings</h5>
-    <img class="profile-image" src="<%= session.imgPath %>" class="card-img-top" alt="...">
+
+    <div id="profile-photo-container">
+      <img class="profile-image" src="<%= session.imgPath %>" class="card-img-top" alt="...">
       <form id="image-upload" action="/profile/add-profile-photo" method="post" enctype="multipart/form-data">
-        <input type="file" name="photo">
-        <input type="submit" value="SAVE">
+        <input id="selected-photo" type="file" name="photo" onchange="form.submit()" style="display: none;">
+        <input id="hidden-button" type="button" value="Change pic" onclick="document.getElementById('selected-photo').click();" style="display: none;">
       </form>
+      <button id="camera-button" onclick="document.getElementById('hidden-button').click();"><i class="fas fa-camera-retro"></i></button> 
+    </div>
       <p class="card-text"><%= session.email %></p>
       <div class="list-group-item">
         <h5>Add friends</h5>

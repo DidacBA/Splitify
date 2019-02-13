@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/user');
 const uploadCloud = require('../config/cloudinary.js');
+const isEmpty = require('../helpers/helpers');
 
 const router = express.Router();
 
@@ -25,7 +26,10 @@ router.post('/search', (req, res, next) => {
 
   User.find({ username: searchField })
     .then((user) => {
-      if (!user) {
+      if (isEmpty(user)) {
+        req.flash('warning', 'User doesn\'t exist');
+        res.redirect('/profile');
+      } else if (user.status === 'false') {
         req.flash('warning', 'User doesn\'t exist');
         res.redirect('/profile');
       } else {
