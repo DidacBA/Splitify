@@ -1,14 +1,18 @@
 <%- include ../partials/navbar %>
 <%- include ../partials/notifications %>
 
-<h1>Search Result</h1>
+<div class="container">
+  <form class="flex-column centered" action="/profile" method="post">
+    <img class="profile-image" src="<%= user[0].imgPath %>" alt="profile picture">
+    <div class="details-container">
+      <p class="username"><%= user[0].username %></p>
+      <p class="email"><%= user[0].email %></p>
+    </div>
+    <input type="hidden" name="id" value="<%= user[0]._id %>">
+    <button class="add-friend" type="submit">Add friend</button>
+  </form>
+  <a href="/profile" class="go-back centered"><i class="fas fa-angle-double-left"></i></a>
 
-<form action="/profile" method="post">
-  <p><%= user[0].username %></p>
-  <p><%= user[0].email %></p>
-  <p> Joined in <%= user[0].createdAt %></p>
-  <input type="hidden" name="id" value="<%= user[0]._id %>">
-  <button type="submit">Add friend</button>
-</form>
-<a href="/users/profile">Go back</a>
+</div>
 
+<script src="/javascript/profile.js"></script>
