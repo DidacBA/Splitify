@@ -2,14 +2,18 @@
 <%- include ../partials/notifications %>
 
 <div class="container">
-  <form action="/profile" method="post">
+  <form class="flex-column centered" action="/profile" method="post">
     <img class="profile-image" src="<%= user[0].imgPath %>" alt="profile picture">
-    <p><%= user[0].username %></p>
-    <p><%= user[0].email %></p>
-    <p> Joined in <%= user[0].createdAt %></p>
+    <div class="details-container">
+      <p class="username"><%= user[0].username %></p>
+      <p class="email"><%= user[0].email %></p>
+      <p> Joined in <span class="date"><%= user[0].createdAt %></span></p>
+    </div>
     <input type="hidden" name="id" value="<%= user[0]._id %>">
-    <button type="submit">Add friend</button>
+    <button class="add-friend" type="submit">Add friend</button>
   </form>
-  <a href="/profile">Go back</a>
+  <a href="/profile" class="go-back centered"><i class="fas fa-angle-double-left"></i></a>
+
 </div>
 
+<script src="/javascript/profile.js"></script>
