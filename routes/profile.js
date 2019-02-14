@@ -31,10 +31,10 @@ router.post('/search', (req, res, next) => {
   User.find({ username: searchField })
     .then((user) => {
       if (isEmpty(user)) {
-        req.flash('warning', 'User doesn\'t exist');
+        req.flash('warning', `User ${searchField} doesn't exist`);
         res.redirect('/profile');
       } else if (user[0].status === false) {
-        req.flash('warning', 'User doesn\'t exist');
+        req.flash('warning', `Remind ${user[0].username} to answer the confirmation e-mail!`);
         res.redirect('/profile');
       } else if (friendsStrings.includes(user[0]._id.toString())) {
         req.flash('warning', `You are already friends with ${user[0].username}`);
