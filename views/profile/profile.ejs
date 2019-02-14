@@ -38,13 +38,14 @@
 
 <input type="submit" class="btn btn-danger delete-button"  id="delete" value="Delete Profile">
 
-<div class="footer" class="container hidden-formulary">
+<div  class="container hidden-formulary footer">
   <form action="profile/deleteUser" method="post">
     <p class="delete-message" id="text" hidden>Are you sure you want to delete your account <%= session.username %> ?</p>
     <input class="btn btn-danger delete-final" id="real-delete" type="hidden" value="Delete Permanently">
   </form>
   <input type="hidden" class="btn btn-primary"  id="noDelete" value="No">
 </div>
+
 
 <footer style="position: fixed; width: 100%; bottom: 0;background:#01233f">
   <a href="/" class="go-back centered"><i style="color:white" class="fas fa-angle-double-left"></i></a>

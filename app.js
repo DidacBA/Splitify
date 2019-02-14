@@ -8,7 +8,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 
 const protectedView = require('./middlewares/protectedView');
 const notifications = require('./middlewares/flash');

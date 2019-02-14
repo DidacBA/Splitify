@@ -272,6 +272,9 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
   margin-left: 1rem;
 }
 
+.no-bills {
+  text-align: center;
+}
 
 /* Button animation */
 
@@ -410,5 +413,17 @@ font-size: 1rem;
 }
 
 .footer{
-  margin-bottom:5rem;
+  margin-bottom: 5rem;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
 }
