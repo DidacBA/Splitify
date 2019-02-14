@@ -17,12 +17,8 @@ const notifications = require('./middlewares/flash');
 
 mongoose
   .connect(process.env.DB_URL, { useNewUrlParser: true })
-  .then((x) => {
-    console.log(`Connected to Mongo! Database name: '${x.connections[0].name}'`);
-  })
-  .catch((err) => {
-    console.error('Error connecting to mongo', err);
-  });
+  .then()
+  .catch();
 
 // Connect routers
 
@@ -40,7 +36,7 @@ app.use(session({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60, // 1 day
   }),
-  secret: 'splitify',
+  secret: process.env.SECRET,
   resave: true,
   saveUninitialized: true,
   cookie: {
