@@ -34,7 +34,7 @@ router.post('/search', (req, res, next) => {
         req.flash('warning', `User ${searchField} doesn't exist`);
         res.redirect('/profile');
       } else if (user[0].status === false) {
-        req.flash('warning', `Remind ${user[0].username} to answer the confirmation e-mail!`);
+        req.flash('warning', `User ${searchField} doesn't exist`);
         res.redirect('/profile');
       } else if (friendsStrings.includes(user[0]._id.toString())) {
         req.flash('warning', `You are already friends with ${user[0].username}`);

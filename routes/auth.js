@@ -57,7 +57,7 @@ router.post('/signup', passwordControl, (req, res, next) => {
                 html: verifyMessage(confirmationURL),
               })
                 .then(() => {
-                  req.flash('success', 'Account created. You will receive a confirmation mail shortly');
+                  req.flash('success', 'Account created. You will soon receive a confirmation email');
                   res.redirect('/');
                 })
                 .catch(error => console.log(error));
