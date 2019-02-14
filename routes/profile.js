@@ -29,7 +29,7 @@ router.post('/search', (req, res, next) => {
       if (isEmpty(user)) {
         req.flash('warning', 'User doesn\'t exist');
         res.redirect('/profile');
-      } else if (user.status === 'false') {
+      } else if (user[0].status === false) {
         req.flash('warning', 'User doesn\'t exist');
         res.redirect('/profile');
       } else {
