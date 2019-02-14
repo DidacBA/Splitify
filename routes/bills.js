@@ -115,10 +115,6 @@ router.get('/list', (req, res, next) => {
   const userName = req.session.currentUser.username;
   Bill.find({ participants: userName })
     .then((bills) => {
-      bills.forEach((bill) => {
-        console.log(bill);
-      });
-
       res.render('bills/list', { bills });
     })
     .catch(next);
