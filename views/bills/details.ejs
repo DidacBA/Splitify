@@ -30,6 +30,11 @@
     <p class="totals"><span id="user-name"><%= userName %></span>, you owe <span id="user-total"></span> €</p>
   </div>
 
+  <input id="lat" type="hidden" name="lat" value="<%= lat %>">
+  <input id="long" type="hidden" name="long" value="<%= long %>">
+
+  <div id="map"></div>
+
   <form action="/bills/<%=bill._id %>/settle" method="post">
     <button type="submit" class="btn btn-success settle">Settle bill</button>
   </form>
