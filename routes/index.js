@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   const session = req.session.currentUser;
-  Bill.find({ creatorId: session._id }).sort({ date: -1 }).limit(2)
+  Bill.find({ $or: [{ creatorId: session._id }, { participants: session.username }] }).sort({ date: -1 }).limit(2)
     .then((bills) => {
       if (isEmpty(bills)) {
         res.render('main-empty');
