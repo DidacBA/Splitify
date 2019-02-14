@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongoose').Types;
-const transporter = require('../config/transporter');
 const express = require('express');
+const transporter = require('../config/transporter');
 
 const newBill = require('../config/newBill');
 const User = require('../models/user');
@@ -133,6 +133,10 @@ router.get('/list', (req, res, next) => {
   const userName = req.session.currentUser.username;
   Bill.find({ participants: userName })
     .then((bills) => {
+      bills.forEach((bill) => {
+        console.log(bill);
+      });
+
       res.render('bills/list', { bills });
     })
     .catch(next);
