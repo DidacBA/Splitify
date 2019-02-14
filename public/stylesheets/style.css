@@ -254,13 +254,26 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
   border-radius: 0;
   height: 100%;
   font-size: 2rem;
-  background-color: #01233F;
+  background-color: rgba(1, 35, 63, 0.7);
   color: whitesmoke;
   border-style: none;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.main-page-bill-name{
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+.bill-date-main{
+  font-size: 1rem;
+  margin-left: 2rem;
+}
+
+
+/* Button animation */
 
 .bounce-7 {
   animation-name: bounce-7;

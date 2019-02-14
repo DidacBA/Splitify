@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongoose').Types;
-const transporter = require('../config/transporter');
 const express = require('express');
+const transporter = require('../config/transporter');
 
 const newBill = require('../config/newBill');
 const User = require('../models/user');
@@ -92,9 +92,6 @@ router.post('/participants', (req, res, next) => {
 
 router.post('/setBill', (req, res, next) => {
   const itemPayers = Object.values(req.body);
-  console.log('this is itempayers', itemPayers);
-  const friendsData = req.session.friends;
-  console.log('this is friends data', friendsData);
   const UpdatedItems = [];
   const billItems = req.session.newBill.items;
 
@@ -105,22 +102,7 @@ router.post('/setBill', (req, res, next) => {
 
   const billId = req.session.newBill._id;
   Bill.findByIdAndUpdate(billId, { items: UpdatedItems })
-    .then((bill) => {
-      friendsData.forEach((friend) => {
-        if (itemPayers.indexOf(friend.username !== -1)) {
-          console.log(friend);
-          transporter.sendMail({
-            from: '"Splitify Team" <splitifyWebApp@gmail.com>',
-            to: friend.email,
-            subject: `${friend.username}, You have a new bill`,
-            text: 'You have received a new bill',
-            html: newBill(friend.username, bill.name),
-          })
-            .then(info => console.log(info))
-            .catch(error => console.log(error));
-        }
-      });
-
+    .then(() => {
       res.redirect('/bills/list');
       req.flash('success', 'You have created a new bill');
     })
@@ -133,6 +115,10 @@ router.get('/list', (req, res, next) => {
   const userName = req.session.currentUser.username;
   Bill.find({ participants: userName })
     .then((bills) => {
+      bills.forEach((bill) => {
+        console.log(bill);
+      });
+
       res.render('bills/list', { bills });
     })
     .catch(next);

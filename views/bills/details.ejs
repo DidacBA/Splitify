@@ -27,13 +27,21 @@
 
   <div class="flex-column">
     <p class="totals">Total bill <span id="bill-total"></span> €</p>
-    <p class="totals"><span id="user-name"><%= userName %></span>, you owe <span id="user-total"></span> €</p>
+    <p class="totals"><span id="user-name"><%= userName %></span>, your part is <span id="user-total"></span> €</p>
   </div>
+
+  <input id="lat" type="hidden" name="lat" value="<%= lat %>">
+  <input id="long" type="hidden" name="long" value="<%= long %>">
+
 
   <form action="/bills/<%=bill._id %>/settle" method="post">
     <button type="submit" class="btn btn-success settle">Settle bill</button>
   </form>
   </div>
+
+  <input id="lat" type="hidden" name="lat" value="<%= lat %>">
+  <input id="long" type="hidden" name="long" value="<%= long %>">
+  <div id="map" style="height:10rem; margin: 1rem 0"></div>
 
 <a href="/bills/list" class="centered go-back"><i class="fas fa-angle-double-left"></i></a>
 
