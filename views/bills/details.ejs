@@ -1,7 +1,7 @@
 <%- include ../partials/navbar %>
 <%- include ../partials/notifications %>
 
-<div class="container">
+<div class="container footer">
 
   <h3 class="title bill-title"><%= bill.name %></h1>
 
@@ -37,13 +37,18 @@
   <form action="/bills/<%=bill._id %>/settle" method="post">
     <button type="submit" class="btn btn-success settle">Settle bill</button>
   </form>
-  </div>
-
+  
   <input id="lat" type="hidden" name="lat" value="<%= lat %>">
   <input id="long" type="hidden" name="long" value="<%= long %>">
   <div class="container" id="map" style="height:10rem; margin: 1rem 0"></div>
 
-<a href="/bills/list" class="centered go-back"><i class="fas fa-angle-double-left"></i></a>
+</div>
+
+
+  <footer style="position: fixed; width: 100%; bottom: 0;background:#01233f">
+    <a href="/bills/list" class="go-back centered"><i style="color:white" class="fas fa-angle-double-left"></i></a>
+  </footer>
+
 
 <script src="/javascript/calculator.js"></script>
 <script src="/javascript/mapBox.js"></script>
