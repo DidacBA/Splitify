@@ -219,7 +219,7 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 #bill-button-container {
   text-align: center;
   padding: 0;
-  margin-top: 20%;
+  margin-top: 15%;
 }
 
 #bill-button {
@@ -269,7 +269,7 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 
 .bill-date-main{
   font-size: 1rem;
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 
