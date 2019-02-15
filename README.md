@@ -117,7 +117,7 @@ The url to your repository and to your deployed project
 
 [Repository Link](http://github.com)
 
-[Deploy Link](http://heroku.com)
+[Deploy Link](https://splitify.herokuapp.com)
 
 ### Slides
 
