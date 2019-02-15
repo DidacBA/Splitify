@@ -57,7 +57,7 @@ router.post('/signup', passwordControl, (req, res, next) => {
                 html: verifyMessage(confirmationURL),
               })
                 .then(() => {
-                  req.flash('success', 'Account created. You will receive a confirmation mail shortly');
+                  req.flash('success', 'Account created. You will soon receive a confirmation email');
                   res.redirect('/');
                 })
                 .catch(error => console.log(error));
@@ -109,7 +109,7 @@ router.post('/login', (req, res, next) => {
         res.redirect('/login');
         return;
       }
-      if (user.status === 'Pending confirmation') {
+      if (user.status === false) {
         req.flash('error', 'Account is not active. Please check your email');
         res.redirect('/login');
         return;
