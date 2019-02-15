@@ -109,7 +109,7 @@ router.post('/login', (req, res, next) => {
         res.redirect('/login');
         return;
       }
-      if (user.status === 'Pending confirmation') {
+      if (user.status === false) {
         req.flash('error', 'Account is not active. Please check your email');
         res.redirect('/login');
         return;
