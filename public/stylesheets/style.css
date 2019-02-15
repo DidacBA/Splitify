@@ -23,7 +23,7 @@ input:focus {
   outline:none;
 }
 
-a:focus {
+button:focus {
   outline: none;
 }
 
@@ -177,19 +177,39 @@ input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
   width: 25%;
 }
 
+.setbill-participant-label{
+  font-size: 2rem;  
+}
+
 .radio-button{
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .participant-label{
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
+  color: #00b7FF;
 }
 
 .participant-radio-pair{
   align-items: center;
   margin: 0 1rem;
+}
+
+.setbill-section{
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.7rem;
+  text-transform: capitalize;
+  margin-bottom: 1.5rem;
+  color: #01233F;
+}
+
+.section-separator{
+  border: 1px solid #00b7ff;
+  width: 90%;
+  margin-top: 1.5rem;
 }
 
 /* Bill details */
