@@ -7,7 +7,7 @@
     <div class="flex-column">
       <% items.forEach((item) => { %>
       <div class="flex-column">
-        <p class="extra-margin"><span class="item-name"><%= item.name %></span> <span class="item-price"><%= item.price %></span>€</p>
+        <p class="extra-margin setbill-section"><span><%= item.name %></span> <span><%= item.price %>€</span></p>
         <div class="flex-wrap">
             <% participants.forEach((participant) => { %>
                 <div class="flex-column participant-radio-pair">
@@ -17,7 +17,7 @@
             <% }) %>
         </div>
       </div>
-      <hr>
+      <hr class="section-separator">
       <%})%>
       <button class="arrow-right" type="submit"><i class="fas fa-arrow-right"></i></button>
     </div>  

@@ -48,7 +48,6 @@ router.post('/signup', passwordControl, (req, res, next) => {
             confirmationCode,
           })
             .then(() => {
-              console.log('I am in then');
               transporter.sendMail({
                 from: '"Splitify Team" <splitifyWebApp@gmail.com>',
                 to: email,
