@@ -14,8 +14,8 @@ function calculator() {
       partialTotal += parseFloat(itemPrices[i].innerHTML);
     }
   }
-  billTotal.textContent = globalTotal;
-  userTotal.textContent = partialTotal;
+  billTotal.textContent = globalTotal.toFixed(2);
+  userTotal.textContent = partialTotal.toFixed(2);
 }
 
 window.addEventListener('load', calculator);
