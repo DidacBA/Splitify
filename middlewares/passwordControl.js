@@ -11,15 +11,15 @@ const passwordControl = (req, res, next) => {
 
   const numbers = /[0-9]/g;
   const numberInclude = password.match(numbers);
+
   const capital = /[A-Z]/g;
   const capitalLetter = password.match(capital);
 
-
   if (
     password.length >= 8
-    && capitalLetter.length > 0
+    && capitalLetter !== null
     && numberInclude.length > 0
-    && lowerCaseLetter.length > 0
+    && lowerCaseLetter !== null
     && specialChar === null
   ) {
     next();
